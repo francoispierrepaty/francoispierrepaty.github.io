@@ -159,6 +159,12 @@ strong {
   font-weight:500;
 }
 
+.fas, .fab {
+  font-size:4em;
+  padding-left:0.5em;
+  padding-right:0.5em;
+}
+
 header ul li + li + li {
   border-right:none;
   width:89px;
