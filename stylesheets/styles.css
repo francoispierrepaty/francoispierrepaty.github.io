@@ -159,8 +159,11 @@ strong {
   font-weight:500;
 }
 
+.icons-center {
+  text-align:center;
+}
 .fas, .fab {
-  font-size:4em;
+  font-size:2.5em;
   padding-left:0.5em;
   padding-right:0.5em;
 }
