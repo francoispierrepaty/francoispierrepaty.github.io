@@ -16,6 +16,20 @@ p, ul, ol, table, pre, dl {
   text-align:justify;
 }
 
+.picture {
+  border-radius: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:30px;
+  margin-bottom: 20px;
+  width:50%;
+}
+
+.title {
+  font-size: 200%;
+}
+
 h1, h2, h3 {
   line-height:1.1;
 }
