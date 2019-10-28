@@ -137,8 +137,8 @@ strong {
 .icons-center {
   text-align:center;
 }
-.fas, .fab {
-  font-size:2.5em;
+.fas, .fab, .ai {
+  font-size:2em;
   padding-left:0.5em;
   padding-right:0.5em;
 }
