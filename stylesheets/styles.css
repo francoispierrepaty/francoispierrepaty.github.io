@@ -74,7 +74,7 @@ a:hover small {
 }
 
 .wrapper {
-  width:1500px;
+  width:1000px;
   margin:0 auto;
 }
 
@@ -123,7 +123,7 @@ img {
 }
 
 header {
-  width:470px;
+  width:270px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -143,9 +143,28 @@ strong {
   padding-right:0.5em;
 }
 
+header ul {
+  text-align:center;
+  list-style-type: none;
+  width: 50%;
+  margin-left:30px;
+}
+
+header ul a {
+  color:#595959;
+  font-weight: 300;
+  font-variant: small-caps;
+}
+
+header ul a:hover {
+  color:#595959;
+  font-weight: 400;
+  text-decoration: underline;
+}
+
 
 section {
-  width:900px;
+  width:700px;
   float:right;
   padding-bottom:50px;
 }
