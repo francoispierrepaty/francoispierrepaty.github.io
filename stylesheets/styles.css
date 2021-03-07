@@ -24,6 +24,8 @@ p, ul, ol, table, pre, dl {
   margin-top:30px;
   margin-bottom: 20px;
   width:85%;
+  padding: 5px;
+  border:1px solid #f2f3f3;
 }
 
 .title {
