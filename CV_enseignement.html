@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - François-Pierre Paty</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #4682B4;
+            padding-bottom: 20px;
+        }
+        
+        h1 {
+            color: #4682B4;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .intro {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        h2 {
+            color: #4682B4;
+            border-bottom: 1px solid #4682B4;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        
+        h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+            color: #2F4F4F;
+        }
+        
+        .job-title {
+            font-weight: bold;
+        }
+        
+        .date {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        ul {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .skill-category {
+            margin-bottom: 15px;
+        }
+        
+        .skill-title {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        a {
+            color: #4682B4;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .education-item {
+            margin-bottom: 20px;
+        }
+        
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .institution {
+            font-weight: bold;
+            color: #2F4F4F;
+        }
+        
+        .degree {
+            font-style: italic;
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>François-Pierre Paty</h1>
+        <div class="contact-info">
+            <a href="mailto:francoispierre.paty@gmail.com">francoispierre.paty@gmail.com</a> •
+            <a href="https://francoispierrepaty.github.io" target="_blank">francoispierrepaty.github.io</a>
+        </div>
+    </header>
+    
+    <div class="intro">
+        <p>Ingénieur polytechnicien et docteur en mathématiques appliquées, je souhaite transmettre ma passion pour les mathématiques et partager mon expertise en modélisation mathématique auprès d'étudiants en école d'ingénieur.</p>
+    </div>
+    
+    <section>
+        <h2>Expériences professionnelles</h2>
+        
+        <div class="experience">
+            <h3>
+                <span class="job-title">Research Scientist | Ida, Paris</span>
+                <span class="date">Oct 2023–Présent</span>
+            </h3>
+            <ul>
+                <li>Responsable R&D d'une startup d'optimisation des commandes de produits frais</li>
+                <li>Conception et implémentation d'algorithmes de machine learning et d'optimisation (recherche opérationnelle)</li>
+                <li>Encadrement de stagiaires (niveau master) en data science et modélisation mathématique</li>
+            </ul>
+        </div>
+        
+        <div class="experience">
+            <h3>
+                <span class="job-title">Fondateur et enseignant de Chinois Mandarin en ligne | <a href="https://www.hsklevel.com" target="_blank">www.hsklevel.com</a></span>
+                <span class="date">Mai 2022–Présent</span>
+            </h3>
+            <ul>
+                <li>Développement d'une plateforme web d'évaluation du niveau en chinois</li>
+                <li>Élaboration de modèles mathématiques d'apprentissage des langues basés sur le machine learning</li>
+                <li>Création et diffusion de contenu pédagogique via une newsletter primée (Substack Bestseller, Top 68 en Éducation)</li>
+            </ul>
+        </div>
+        
+        <div class="experience">
+            <h3>
+                <span class="job-title">Chercheur postdoctoral en économie mathématique | CNRS, Palaiseau</span>
+                <span class="date">Sept 2021–Avril 2022</span>
+            </h3>
+            <ul>
+                <li>Application de la théorie du transport optimal à la modélisation du marché du travail</li>
+            </ul>
+        </div>
+        
+        <div class="experience">
+            <h3>
+                <span class="job-title">Enseignant-chercheur doctorant | ENSAE Paris</span>
+                <span class="date">Sept 2018–Août 2021</span>
+            </h3>
+            <ul>
+                <li>Doctorat sur le transport optimal algorithmique sous la direction de Marco Cuturi</li>
+                <li>Enseignement de mathématiques et d'informatique à différents niveaux :
+                    <ul>
+                        <li>Licence : Statistique mathématique, Topologie et Analyse, Optimisation différentiable</li>
+                        <li>Master : Deep Learning, Transport optimal</li>
+                    </ul>
+                </li>
+                <li>Publication de trois articles dans des conférences internationales de premier plan (ICML, AISTATS)</li>
+                <li>Organisation du séminaire "Statistique-Économétrie-Machine Learning" à l'ENSAE</li>
+            </ul>
+        </div>
+        
+        <div class="experience">
+            <h3>
+                <span class="job-title">Chercheur en mathématiques appliquées | EDF R&D</span>
+                <span class="date">Avril 2017–Août 2017</span>
+            </h3>
+            <ul>
+                <li>Développement de méthodes innovantes pour l'imputation de données manquantes dans les séries temporelles</li>
+                <li>Co-inventeur d'un brevet (FR3075969B1)</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section>
+        <h2>Formation</h2>
+        
+        <div class="education-item">
+            <div class="education-header">
+                <span class="institution">Institut Polytechnique de Paris | Palaiseau, France</span>
+                <span class="date">2018–2021</span>
+            </div>
+            <div class="degree">Doctorat en mathématiques appliquées au machine learning</div>
+        </div>
+        
+        <div class="education-item">
+            <div class="education-header">
+                <span class="institution">Université Paris-Sud | Orsay, France</span>
+                <span class="date">2017–2018</span>
+            </div>
+            <div class="degree">Master Recherche en Statistique et Machine Learning</div>
+        </div>
+        
+        <div class="education-item">
+            <div class="education-header">
+                <span class="institution">ENSAE Paris | Palaiseau, France</span>
+                <span class="date">2017–2018</span>
+            </div>
+            <div class="degree">Diplôme d'ingénieur, spécialisation Data Science</div>
+        </div>
+        
+        <div class="education-item">
+            <div class="education-header">
+                <span class="institution">École polytechnique | Palaiseau, France</span>
+                <span class="date">2014–2018</span>
+            </div>
+            <div class="degree">Diplôme d'ingénieur (promotion X2014), spécialisation en mathématiques appliquées</div>
+        </div>
+    </section>
+    
+    <section>
+        <h2>Compétences techniques et linguistiques</h2>
+        
+        <div class="skills-grid">
+            <div class="skill-category">
+                <span class="skill-title">Enseignement:</span>
+                <span>Conception de cours, travaux dirigés, vulgarisation scientifique</span>
+            </div>
+
+            <div class="skill-category">
+                <span class="skill-title">Programmation:</span>
+                <span>Python (JAX, scikit-learn, cvxpy), SQL, React, PHP</span>
+            </div>
+            
+            <div class="skill-category">
+                <span class="skill-title">Langues:</span>
+                <span>Français (natif), Anglais (courant), Chinois (niveau HSK5), Italien (bon niveau)</span>
+            </div>
+            
+            <div class="skill-category">
+                <span class="skill-title">Expérience internationale:</span>
+                <span>Séjour de recherche au Japon, stage à l'ambassade de France à Rome</span>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+        <h2>Prix et distinctions</h2>
+        
+        <ul>
+            <li>Prix du meilleur article ("Notable Paper Award"), AISTATS 2020</li>
+            <li>Sélection pour présentation orale (top 20%), ICML 2019</li>
+            <li>Félicitations du département de mathématiques appliquées de l'École polytechnique, 2017</li>
+        </ul>
+    </section>
+</body>
+</html>
