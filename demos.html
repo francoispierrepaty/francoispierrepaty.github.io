@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133810388-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-133810388-1');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactive demos · François-Pierre Paty</title>
+    <meta name="description" content="Interactive in-browser demos of François-Pierre Paty's research on optimal transport: Subspace Robust Wasserstein distances and Regularity as Regularization.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
+    <link rel="stylesheet" href="stylesheets/main.css">
+    <script>
+      window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']] }, svg: { fontCache: 'global' } };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+  </head>
+
+  <body data-page="demos">
+    <div class="wrap">
+      <div class="layout">
+
+        <aside class="sidebar"><!-- injected by javascripts/sidebar.js --></aside>
+
+        <main>
+          <section id="demos-intro">
+            <h2>Interactive demos</h2>
+            <p>
+              Two of my papers, running live in your browser on a few dozen points. Pick a demo below, drag the clouds and move the sliders.
+            </p>
+            <div class="demo-tabs" role="tablist">
+              <button class="demo-tab-btn" data-tab="srw" role="tab">Subspace Robust Wasserstein</button>
+              <button class="demo-tab-btn" data-tab="reg1d" role="tab">Regularity as Regularization</button>
+            </div>
+          </section>
+
+          <!-- ===================== SRW ===================== -->
+          <section class="demo-panel" data-panel="srw" role="tabpanel">
+            <h3 class="demo-heading">Subspace Robust Wasserstein</h3>
+            <p>
+              This demo brings to life <a href="http://proceedings.mlr.press/v97/paty19a.html">Subspace Robust Wasserstein Distances</a> (Paty and Cuturi, ICML 2019). Drag either point cloud to move it around.
+            </p>
+            <p>
+              Optimal transport measures the effort needed to morph one cloud of points, the measure \(\mu\), into the other one, the measure \(\nu\). In high dimension this effort is often dominated by a handful of directions that carry little real information. The paper asks a sharper question: along which low dimensional view are the two clouds the <em>hardest</em> to align? Writing \(P_E\) for the projection onto a subspace \(E\) of dimension \(k\), the subspace robust distance is
+            </p>
+            $$ \mathcal{S}_k(\mu,\nu)^2 \;=\; \max_{\dim E = k}\ \min_{\pi \in \Pi(\mu,\nu)}\ \int \lVert P_E(x-y) \rVert^2 \, \mathrm{d}\pi(x,y). $$
+            <p>
+              The data here is two dimensional and we take \(k = 1\), so the worst view is a single line, drawn in yellow. The algorithm goes back and forth until its two steps agree: solve the transport problem along the current line, then turn the line towards the direction that transport stretches the most. The dashed line is ordinary PCA, the direction of largest spread, which usually points somewhere else.
+            </p>
+            <div class="demo-card">
+              <div class="demo-canvas-wrap">
+                <canvas id="srw-canvas" width="900" height="520"></canvas>
+              </div>
+              <div class="demo-controls">
+                <button class="btn" id="srw-resample">Resample clouds</button>
+                <button class="btn ghost" id="srw-toggle-plan">Show transport plan</button>
+                <label>Spread of Y
+                  <input type="range" id="srw-spread" min="0.04" max="0.34" step="0.01" value="0.18">
+                </label>
+                <label>Regularization&nbsp;ε
+                  <input type="range" id="srw-eps" min="0.0005" max="0.015" step="0.0005" value="0.003">
+                </label>
+              </div>
+              <div class="demo-legend">
+                <span><span class="swatch" style="background:#2a6f7a"></span>first cloud (μ)</span>
+                <span><span class="swatch" style="background:#a4452f"></span>second cloud (ν)</span>
+                <span><span class="swatch" style="background:#caa84a"></span>worst-case line (k = 1)</span>
+                <span><span class="line-swatch dashed" style="border-color:#6a6258"></span>PCA</span>
+              </div>
+              <div class="demo-readout">
+                <span>robust distance S₁: <b id="srw-val">…</b></span>
+                <span>ordinary Wasserstein W₂: <b id="srw-w2">…</b></span>
+                <span>angle of the worst-case line: <b id="srw-dir">…</b></span>
+              </div>
+            </div>
+            <p class="demo-note">
+              Everything runs live on a few dozen points. The transport step uses entropic optimal transport (Sinkhorn), and the new line is the leading eigenvector of the transport weighted spread of the displacements. The projection \(P\) ranges over \(\{P : 0 \preceq P \preceq I,\ \operatorname{tr} P = 1\}\), exactly as in the paper. <a href="https://github.com/francoispierrepaty/SubspaceRobustWasserstein">Original Python code</a>.
+            </p>
+          </section>
+
+          <!-- ===================== REGULARITY 1D ===================== -->
+          <section class="demo-panel" data-panel="reg1d" role="tabpanel" hidden>
+            <h3 class="demo-heading">Regularity as Regularization</h3>
+            <p>
+              This demo brings to life <a href="http://proceedings.mlr.press/v108/paty20a.html">Regularity as Regularization: Smooth and Strongly Convex Brenier Potentials in Optimal Transport</a> (Paty, d'Aspremont and Cuturi, AISTATS 2020).
+            </p>
+            <p>
+              We want the optimal transport map \(T\) that carries a source distribution \(P\) onto a target distribution \(Q\), and we only see samples of each. Brenier's theorem says such a map is the gradient of a convex potential, \(T = \nabla f\). The paper estimates the map by looking for a potential whose gradient pushes \(P\) as close to \(Q\) as possible, while staying regular:
+            </p>
+            $$ \min_{f \,\in\, \mathcal{F}_{\mu,L}}\ W_2^2\big( \nabla f \,\#\, P,\ Q \big), $$
+            <p>
+              where \(\mathcal{F}_{\mu,L}\) is the set of potentials that are \(\mu\)-strongly convex and \(L\)-smooth, \(\nabla f \,\#\, P\) is the distribution obtained by sending every point \(x\) to \(\nabla f(x)\), and \(W_2\) is the Wasserstein distance. Imposing this regularity is the same as asking the map to be <strong>bi-Lipschitz</strong>: for all points,
+            </p>
+            $$ \mu\,\lVert x - x' \rVert \;\le\; \lVert T(x) - T(x') \rVert \;\le\; L\,\lVert x - x' \rVert. $$
+            <p>
+              In plain terms, this bounds how much the map is allowed to stretch or squeeze distances: it never pulls two points apart by more than a factor \(L\), and never crushes them together by more than a factor \(\mu\). Close points stay close, and far points stay far.
+            </p>
+            <p>
+              In one dimension this becomes especially transparent. A transport map is just an increasing curve, so regularity becomes a bound on the slope between any two observed source points:
+            </p>
+            $$ \mu \;\le\; \frac{T(x') - T(x)}{x' - x} \;\le\; L . $$
+            <p>
+              The lower bound \(\mu\) prevents the fitted map from flattening out and collapsing distant source points together. The upper bound \(L\) prevents it from making sudden steep jumps to chase noisy observations. Together they say: fit the data, but only with a curve whose local stretching stays plausible.
+            </p>
+            <p>
+              In the simulation, the smooth curves show the underlying source and target distributions \(P\) and \(Q\). What the estimator actually receives is much poorer: source samples \(x_i\) from \(P\), and noisy observations of where the true map sends them, \(y_i = T^*(x_i) + \varepsilon_i\), with \(\varepsilon_i \sim \mathcal{N}(0,\sigma^2)\) iid.
+            </p>
+            <p>
+              The red curve is the least-squares fit to those observations under the slope constraints,
+            </p>
+            $$ \min_T \sum_i \bigl(T(x_i) - y_i\bigr)^2
+              \quad\text{subject to}\quad
+              \mu \le \frac{T(x') - T(x)}{x' - x} \le L . $$
+            <p>
+              This is isotonic regression with two extra regularity rules. Plain isotonic regression only asks the map to keep increasing, which corresponds to \(\mu = 0\) and \(L = \infty\). Here the bounds also stop the map from becoming too flat or too steep, which is how the regularized fit filters out the noise.
+            </p>
+            <div class="demo-card">
+              <div class="demo-canvas-wrap">
+                <canvas id="reg-canvas" width="900" height="560"></canvas>
+              </div>
+              <div class="demo-controls">
+                <button class="btn" id="reg-resample">Resample</button>
+                <button class="btn" id="reg-bestfit">Best fit (μ, L)</button>
+                <label>noise&nbsp;σ
+                  <input type="range" id="reg-sigma" min="0" max="0.4" step="0.01" value="0.14">
+                </label>
+              </div>
+              <div class="demo-controls">
+                <div class="rangefield">
+                  <span class="rangelabel">fit couple&nbsp; (μ, L) = <b id="reg-fit-val">(0.15, 2.20)</b></span>
+                  <div class="dualrange" id="reg-fit-dr"></div>
+                </div>
+                <div class="rangefield">
+                  <span class="rangelabel">true couple&nbsp; (μ*, L*) = <b id="reg-true-val">(0.20, 3.00)</b></span>
+                  <div class="dualrange" id="reg-true-dr"></div>
+                </div>
+              </div>
+              <div class="demo-legend">
+                <span><span class="swatch" style="background:#3a6ea5"></span>source P</span>
+                <span><span class="swatch" style="background:#c47d33"></span>target Q</span>
+                <span><span class="line-swatch" style="border-color:#4e9b5b"></span>true map</span>
+                <span><span class="line-swatch" style="border-color:#a4452f"></span>regularized map (μ ≤ T' ≤ L)</span>
+                <span><span class="line-swatch" style="border-color:#7d6fa3"></span>plain isotonic (μ=0, L=∞)</span>
+                <span><span class="line-swatch dashed" style="border-color:#8a857b"></span>unconstrained fit</span>
+              </div>
+              <div class="demo-readout">
+                <span>distance to the true map. Regularized fit: <b id="reg-rmse">…</b></span>
+                <span>isotonic: <b id="reg-rmse-iso">…</b></span>
+                <span>unconstrained: <b id="reg-rmse-raw">…</b></span>
+              </div>
+            </div>
+            <p class="demo-note">
+              About the two couples. The <em>true couple</em> \((\mu^*, L^*)\) is the regularity of the hidden true map: the source \(P\) is uniform, and pushing it through that map gives the target \(Q\), so this couple is what reshapes \(Q\). The amber curve is the clean \(Q\); the ticks underneath it are the samples \(y_i\), scattered around \(Q\) by the noise σ. The <em>fit couple</em> \((\mu, L)\) is instead the regularity you assume when reconstructing the map, and Best fit looks for the couple that recovers it best. The fit is computed exactly in the browser by coordinate descent on the slopes; in higher dimension the same estimator becomes the convex QCQP of the paper.
+            </p>
+          </section>
+
+        </main>
+      </div>
+    </div>
+    <script src="javascripts/sidebar.js"></script>
+    <script src="javascripts/srw.js"></script>
+    <script src="javascripts/regularity.js"></script>
+    <script src="javascripts/demos-tabs.js"></script>
+  </body>
+</html>
