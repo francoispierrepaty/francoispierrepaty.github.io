@@ -41,7 +41,7 @@
             </p>
             <div class="demo-tabs" role="tablist">
               <button class="demo-tab-btn" data-tab="srw" role="tab">Subspace Robust Wasserstein</button>
-              <button class="demo-tab-btn" data-tab="reg1d" role="tab">Regularity · 1D</button>
+              <button class="demo-tab-btn" data-tab="reg1d" role="tab">Regularity as Regularization</button>
             </div>
           </section>
 
@@ -107,14 +107,23 @@
               In plain terms, this bounds how much the map is allowed to stretch or squeeze distances: it never pulls two points apart by more than a factor \(L\), and never crushes them together by more than a factor \(\mu\). Close points stay close, and far points stay far.
             </p>
             <p>
-              On the line the picture becomes simple and the algorithm becomes light. The map is just an increasing function whose slope is pinned between the two bounds,
+              In one dimension this becomes especially transparent. A transport map is just an increasing curve, so regularity becomes a bound on the slope between any two observed source points:
             </p>
-            $$ \mu \;\le\; \frac{T(x') - T(x)}{x' - x} \;\le\; L , $$
+            $$ \mu \;\le\; \frac{T(x') - T(x)}{x' - x} \;\le\; L . $$
             <p>
-              so estimating it from noisy samples \((x_i, y_i)\) is the least squares fit \(\min_{T}\ \sum_i \bigl(T(x_i) - y_i\bigr)^2\) under these slope bounds. Each sample is a source point \(x_i\) together with where it is observed to land, \(y_i = T(x_i) + \varepsilon_i\), where \(\varepsilon_i\) is a small random wobble drawn afresh for every point. The <em>noise σ</em> slider sets how big that wobble is. It stands in for the measurement error or sampling randomness you would face with real data, and it is exactly what the regularity is meant to filter out.
+              The lower bound \(\mu\) prevents the fitted map from flattening out and collapsing distant source points together. The upper bound \(L\) prevents it from making sudden steep jumps to chase noisy observations. Together they say: fit the data, but only with a curve whose local stretching stays plausible.
             </p>
             <p>
-              That is isotonic regression with two extra rules: plain isotonic regression only asks the map to keep rising (\(\mu = 0,\ L = \infty\)); here we also stop it from going too flat (the bound \(\mu\)) or too steep (the bound \(L\)). Move the sliders and watch the bounds wash the noise away.
+              In the simulation, the smooth curves show the underlying source and target distributions \(P\) and \(Q\). What the estimator actually receives is much poorer: source samples \(x_i\) from \(P\), and noisy observations of where the true map sends them, \(y_i = T^*(x_i) + \varepsilon_i\), with \(\varepsilon_i \sim \mathcal{N}(0,\sigma^2)\) iid.
+            </p>
+            <p>
+              The red curve is the least-squares fit to those observations under the slope constraints,
+            </p>
+            $$ \min_T \sum_i \bigl(T(x_i) - y_i\bigr)^2
+              \quad\text{subject to}\quad
+              \mu \le \frac{T(x') - T(x)}{x' - x} \le L . $$
+            <p>
+              This is isotonic regression with two extra regularity rules. Plain isotonic regression only asks the map to keep increasing, which corresponds to \(\mu = 0\) and \(L = \infty\). Here the bounds also stop the map from becoming too flat or too steep, which is how the regularized fit filters out the noise.
             </p>
             <div class="demo-card">
               <div class="demo-canvas-wrap">
@@ -123,9 +132,8 @@
               <div class="demo-controls">
                 <button class="btn" id="reg-resample">Resample</button>
                 <button class="btn" id="reg-bestfit">Best fit (μ, L)</button>
-                <button class="btn ghost" id="reg-toggle">Hide unconstrained fit</button>
                 <label>noise&nbsp;σ
-                  <input type="range" id="reg-sigma" min="0" max="0.25" step="0.01" value="0.09">
+                  <input type="range" id="reg-sigma" min="0" max="0.4" step="0.01" value="0.14">
                 </label>
               </div>
               <div class="demo-controls">
@@ -141,10 +149,10 @@
               <div class="demo-legend">
                 <span><span class="swatch" style="background:#3a6ea5"></span>source P</span>
                 <span><span class="swatch" style="background:#c47d33"></span>target Q</span>
-                <span><span class="swatch" style="background:#4e9b5b"></span>true map</span>
-                <span><span class="swatch" style="background:#a4452f"></span>regularized map (μ ≤ T' ≤ L)</span>
-                <span><span class="swatch" style="background:#7d6fa3"></span>plain isotonic (μ=0, L=∞)</span>
-                <span><span class="swatch" style="background:#8a857b"></span>noisy samples</span>
+                <span><span class="line-swatch" style="border-color:#4e9b5b"></span>true map</span>
+                <span><span class="line-swatch" style="border-color:#a4452f"></span>regularized map (μ ≤ T' ≤ L)</span>
+                <span><span class="line-swatch" style="border-color:#7d6fa3"></span>plain isotonic (μ=0, L=∞)</span>
+                <span><span class="line-swatch dashed" style="border-color:#8a857b"></span>unconstrained fit</span>
               </div>
               <div class="demo-readout">
                 <span>distance to the true map. Regularized fit: <b id="reg-rmse">…</b></span>

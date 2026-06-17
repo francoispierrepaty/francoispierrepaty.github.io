@@ -36,8 +36,7 @@
   var N = 46, M = 181;          // sample count, fine-grid count
   var mu = 0.15, L = 2.2;       // fit band  (dual slider)
   var muStar = 0.2, Lstar = 3.0;// true band (dual slider)
-  var sigma = 0.09;
-  var showRaw = true;
+  var sigma = 0.14;
 
   var xs = [], zs = [], ys = [];        // samples + frozen N(0,1) noise
   var xf = [], gBase = [], TstarFine = [];
@@ -237,14 +236,14 @@
 
     drawMeasures(0, ph1);
 
-    var mr = range(showRaw ? [TstarFine, Treg, Tiso, ys] : [TstarFine, Treg, Tiso]);
+    var mr = range([TstarFine, Treg, Tiso, ys]);
     var bot = Panel(ph1 + gap, ph2, mr[0], mr[1]);
     bot.frame("The transport map  T   (its slope stays between μ and L)");
     poly(bot, xf, TstarFine, COL.truth, 2.6);
     ctx.fillStyle = COL.data;
     for (var i = 0; i < xs.length; i++) { ctx.beginPath(); ctx.arc(bot.px(xs[i]), bot.py(ys[i]), 2.6, 0, 2 * Math.PI); ctx.fill(); }
-    if (showRaw) poly(bot, xs, ys, COL.raw, 1.5, [4, 4]);
-    poly(bot, xs, Tiso, COL.iso, 1.8, [6, 4]);
+    poly(bot, xs, ys, COL.raw, 1.5, [4, 4]);
+    poly(bot, xs, Tiso, COL.iso, 1.8);
     poly(bot, xs, Treg, COL.fit, 2.6);
 
     set("reg-rmse", rmse(Treg).toFixed(3));
@@ -317,16 +316,9 @@
   var elSigma = document.getElementById("reg-sigma");
   var elResample = document.getElementById("reg-resample");
   var elBest = document.getElementById("reg-bestfit");
-  var elToggle = document.getElementById("reg-toggle");
   if (elSigma) elSigma.addEventListener("input", function () { sigma = +elSigma.value; rebuildY(); invalidate(); });
   if (elResample) elResample.addEventListener("click", function () { resample(); invalidate(); });
   if (elBest) elBest.addEventListener("click", bestFit);
-  if (elToggle) elToggle.addEventListener("click", function () {
-    showRaw = !showRaw;
-    elToggle.textContent = showRaw ? "Hide unconstrained fit" : "Show unconstrained fit";
-    elToggle.classList.toggle("ghost", !showRaw);
-    invalidate();
-  });
   window.addEventListener("resize", function () { fit(); invalidate(); });
 
   // ---------------- go ----------------
