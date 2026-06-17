@@ -172,7 +172,7 @@ summary:hover { color: var(--accent); }
   box-shadow: var(--shadow);
 }
 .demo-canvas-wrap { position: relative; width: 100%; }
-#srw-canvas, #reg-canvas {
+#srw-canvas, #reg-canvas, #econ-canvas {
   display: block; width: 100%; height: auto;
   max-width: 100%;
   background: var(--bg-soft);
@@ -219,8 +219,34 @@ summary:hover { color: var(--accent); }
 .demo-readout b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .demo-legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: .88rem; color: var(--muted); margin-top: 10px; }
 .swatch { display: inline-block; width: 11px; height: 11px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+.swatch.square { border-radius: 2px; }
 .line-swatch { display: inline-block; width: 22px; border-top: 2px solid; margin-right: 6px; vertical-align: middle; }
 .line-swatch.dashed { border-top-style: dashed; }
+
+/* ---------- economics demo ---------- */
+.econ-models {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.econ-model {
+  font-family: inherit;
+  font-size: .9rem;
+  color: var(--muted);
+  background: var(--bg-soft);
+  border: 1px solid var(--rule);
+  border-radius: 7px;
+  padding: 6px 13px;
+  cursor: pointer;
+  transition: color .15s ease, background .15s ease, border-color .15s ease;
+}
+.econ-model:hover { color: var(--accent); border-color: var(--accent); }
+.econ-model.active {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+}
 
 /* ---------- demos: tabs + panels ---------- */
 .demo-tabs {

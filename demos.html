@@ -13,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Interactive demos · François-Pierre Paty</title>
-    <meta name="description" content="Interactive in-browser demos of François-Pierre Paty's research on optimal transport: Subspace Robust Wasserstein distances and Regularity as Regularization.">
+    <meta name="description" content="Interactive in-browser demos of François-Pierre Paty's research on optimal transport, regularity and weak optimal transport in economics.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,11 +37,12 @@
           <section id="demos-intro">
             <h2>Interactive demos</h2>
             <p>
-              Two of my papers, running live in your browser on a few dozen points. Pick a demo below, drag the clouds and move the sliders.
+              Three of my papers, running live in your browser on small toy problems. Pick a demo below, drag the clouds and move the sliders.
             </p>
             <div class="demo-tabs" role="tablist">
               <button class="demo-tab-btn" data-tab="srw" role="tab">Subspace Robust Wasserstein</button>
               <button class="demo-tab-btn" data-tab="reg1d" role="tab">Regularity as Regularization</button>
+              <button class="demo-tab-btn" data-tab="econ" role="tab">Weak OT in Economics</button>
             </div>
           </section>
 
@@ -75,7 +76,7 @@
               <div class="demo-legend">
                 <span><span class="swatch" style="background:#2a6f7a"></span>first cloud (μ)</span>
                 <span><span class="swatch" style="background:#a4452f"></span>second cloud (ν)</span>
-                <span><span class="swatch" style="background:#caa84a"></span>worst-case line (k = 1)</span>
+                <span><span class="line-swatch" style="border-color:#caa84a"></span>worst-case line (k = 1)</span>
                 <span><span class="line-swatch dashed" style="border-color:#6a6258"></span>PCA</span>
               </div>
               <div class="demo-readout">
@@ -165,12 +166,126 @@
             </p>
           </section>
 
+          <!-- ===================== ECONOMICS WOT ===================== -->
+          <section class="demo-panel" data-panel="econ" role="tabpanel" hidden>
+            <h3 class="demo-heading">Weak Optimal Transport in Economics</h3>
+            <p>
+              This demo illustrates <a href="https://arxiv.org/abs/2205.09825">Algorithms for Weak Optimal Transport with an Application to Economics</a> (Paty, Choné and Kramarz, 2022). The economic question is: who works for whom, and what does the matching reveal about workers' skills and firms' technologies?
+            </p>
+            <p>
+              The model looks for the matching that maximizes total production. Firms have technology \(x\), workers have skill \(y\), and a matching says how much worker mass of each type is employed by each firm type. The figure shows that matching together with its two margins. In the central heatmap each row is a firm type and each column is a worker type, and darker cells mean the production-maximizing matching sends more of that worker type to that firm type. Aligned underneath the columns is the worker distribution \(\nu\); aligned beside the rows, on the right, are the firm sizes, the total mass each firm type hires. In OT, entropic OT and WOT these row totals are fixed and equal; only WOTUK lets them move.
+            </p>
+            <p>
+              Production uses a constant-elasticity-of-substitution (CES) function. A worker of type \(y=(y_1,y_2)\) carries a mix of two skills, and a firm of technology \(\alpha=(\alpha_1,\alpha_2)\) weights them by how much it relies on each:
+            </p>
+            $$ F(\alpha,y)
+              =
+              \left(\alpha_1 y_1^\rho + \alpha_2 y_2^\rho\right)^{1/\rho}. $$
+            <p>
+              In the demo the firm rows run from skill-1-intensive to skill-2-intensive, \(\alpha_i=(1-s_i,s_i)\), and the worker columns are a fixed grid \(y_j=(1-t_j,t_j)\) from one specialist extreme to the other. Maximizing production is the same problem as the optimal transport with cost \(c=-F\).
+            </p>
+            <p>
+              The two sliders reshape these inputs. <em>Firm specialization</em> spreads the firm technologies \(\alpha_i\) out from a tight mixed cluster toward the two specialist extremes. <em>Worker population</em> reshapes \(\nu\): the skill positions stay fixed, but their weights shift from specialists piled at the extremes to generalists massed in the middle.
+            </p>
+            <p>
+              Classical optimal transport treats production as pairwise: a firm of type \(x\) hiring a worker of type \(y\) produces \(F(x,y)\). Weak optimal transport lets the production of a firm depend on the whole group of workers it hires, written as a distribution \(\pi_x\). In barycentric WOT, only the average skill of that group matters. In WOTUK, the kernel is unnormalized, so a firm's size is also chosen by the model instead of being fixed in advance.
+            </p>
+            <p>
+              Let \(\mu\) be the distribution of firm types, \(\nu\) the distribution of worker types, and \(\Pi(\mu,\nu)\) the set of matchings whose two marginals are fixed. Classical optimal transport chooses the matching \(\pi\) that maximizes total production:
+            </p>
+            $$ \operatorname{OT}(\mu,\nu)
+              = \sup_{\pi \in \Pi(\mu,\nu)}
+                \int_{X \times Y} F(x,y)\,\mathrm{d}\pi(x,y). $$
+            <p>
+              Entropic OT adds a small entropy reward. It is easier and smoother to compute, but the economic meaning is still pairwise: firms mainly hire nearby worker types, with some blur around the best matches.
+            </p>
+            $$ \operatorname{EOT}_{\varepsilon}(\mu,\nu)
+              = \sup_{\pi \in \Pi(\mu,\nu)}
+                \left\{
+                  \int F(x,y)\,\mathrm{d}\pi(x,y)
+                  - \varepsilon \int \log\!\left(\frac{\mathrm{d}\pi}{\mathrm{d}\mu\,\mathrm{d}\nu}\right)\,\mathrm{d}\pi
+                \right\}. $$
+            <p>
+              Weak OT changes the object that enters production. Disintegrate the matching as \(\mathrm{d}\pi(x,y)=\mathrm{d}\mu(x)\,\mathrm{d}\pi_x(y)\). The measure \(\pi_x\) is the distribution of workers hired by firms of type \(x\). Production may now depend on the whole workforce:
+            </p>
+            $$ \operatorname{WOT}(\mu,\nu)
+              = \sup_{\pi \in \Pi(\mu,\nu)}
+                \int_X F(x,\pi_x)\,\mathrm{d}\mu(x). $$
+            <p>
+              In the barycentric case, \(F(x,\pi_x)\) only sees the average skill \( \int y\,\mathrm{d}\pi_x(y) \). In the demo this is
+            </p>
+            $$ F(x,\pi_x)
+              = \widetilde F\!\left(x,\int_Y y\,\mathrm{d}\pi_x(y)\right),
+              \qquad
+              \widetilde F(\alpha,z)
+              =
+              \left(\alpha_1 z_1^\rho + \alpha_2 z_2^\rho\right)^{1/\rho}. $$
+            <p>
+              This is what lets a generalist firm combine specialists in two skills and obtain the same aggregate skill as from a generalist worker.
+            </p>
+            <p>
+              WOTUK goes one step further. The kernel \(q_x\) is no longer normalized: its total mass \(q_x(Y)\) is the size of firms of type \(x\). The model still exhausts the worker population, but it no longer forces every firm type to have the same size.
+            </p>
+            $$ \operatorname{WOTUK}(\mu,\nu)
+              = \sup_{\substack{q_x \in \mathcal{M}_+(Y)\\
+                  \int_X q_x\,\mathrm{d}\mu(x)=\nu}}
+                \int_X F(x,q_x)\,\mathrm{d}\mu(x),
+              \qquad
+              q_x(Y)=\text{firm size}. $$
+            <p>
+              The demo uses the corresponding conical WOTUK production: \(z=\int y\,\mathrm{d}q_x(y)\) is total skill rather than average skill, and the same CES formula is evaluated on that total skill vector.
+            </p>
+            $$ F(\alpha,q_x)
+              =
+              \left(
+                \alpha_1 \left(\int_Y y_1\,\mathrm{d}q_x(y)\right)^\rho
+                +
+                \alpha_2 \left(\int_Y y_2\,\mathrm{d}q_x(y)\right)^\rho
+              \right)^{1/\rho}. $$
+            <div class="demo-card">
+              <div class="econ-models" role="group" aria-label="Transport model">
+                <button class="econ-model active" data-model="ot">OT</button>
+                <button class="econ-model" data-model="eot">Entropic OT</button>
+                <button class="econ-model" data-model="wot">WOT</button>
+                <button class="econ-model" data-model="wotuk">WOTUK</button>
+              </div>
+              <div class="demo-canvas-wrap">
+                <canvas id="econ-canvas" width="900" height="620"></canvas>
+              </div>
+              <div class="demo-controls">
+                <label>worker population: specialists to generalists
+                  <input type="range" id="econ-workers" min="0" max="1" step="0.01" value="0.35">
+                </label>
+                <label>firm specialization: mixed to specialized
+                  <input type="range" id="econ-firms" min="0" max="1" step="0.01" value="0.70">
+                </label>
+              </div>
+              <div class="demo-legend">
+                <span><span class="swatch square" style="background:#123f4a"></span>strong match</span>
+                <span><span class="swatch square" style="background:#d7b46a"></span>worker distribution</span>
+                <span><span class="swatch square" style="background:#8f3b2d"></span>firm technology / size</span>
+              </div>
+              <div class="demo-readout">
+                <span>model: <b id="econ-model-name">OT</b></span>
+                <span>matching concentration: <b id="econ-concentration">…</b></span>
+                <span>firm-size spread: <b id="econ-size-spread">…</b></span>
+              </div>
+            </div>
+            <p class="demo-note" id="econ-explainer">
+              Each firm hires essentially one kind of worker: skill-1 firms take skill-1 specialists, skill-2 firms take skill-2 specialists. The matching is sharp and runs along the diagonal.
+            </p>
+            <p class="demo-note">
+              The heatmap is computed by the same primal mirror-ascent pattern as Algorithm 1 in the paper. OT and WOT use the multiplicative update \(P \leftarrow P \odot \exp(\gamma \nabla f(P))\), followed by a Sinkhorn KL projection onto \(\Pi(\mu,\nu)\). Entropic OT is a direct Sinkhorn solve with kernel \(\exp(F/\varepsilon)\). WOTUK uses the same multiplicative update, then the closed-form projection that rescales each worker column to the marginal \(\nu\), leaving firm sizes free.
+            </p>
+          </section>
+
         </main>
       </div>
     </div>
     <script src="javascripts/sidebar.js"></script>
     <script src="javascripts/srw.js"></script>
     <script src="javascripts/regularity.js"></script>
+    <script src="javascripts/economics.js"></script>
     <script src="javascripts/demos-tabs.js"></script>
   </body>
 </html>
