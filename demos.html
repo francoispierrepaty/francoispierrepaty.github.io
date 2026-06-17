@@ -37,12 +37,11 @@
           <section id="demos-intro">
             <h2>Interactive demos</h2>
             <p>
-              Three of my papers, running live in your browser on a few dozen points. Pick a demo below, drag the clouds and move the sliders.
+              Two of my papers, running live in your browser on a few dozen points. Pick a demo below, drag the clouds and move the sliders.
             </p>
             <div class="demo-tabs" role="tablist">
               <button class="demo-tab-btn" data-tab="srw" role="tab">Subspace Robust Wasserstein</button>
               <button class="demo-tab-btn" data-tab="reg1d" role="tab">Regularity · 1D</button>
-              <button class="demo-tab-btn" data-tab="reg2d" role="tab">Regularity · 2D</button>
             </div>
           </section>
 
@@ -155,51 +154,6 @@
             </div>
             <p class="demo-note">
               About the two couples. The <em>true couple</em> \((\mu^*, L^*)\) is the regularity of the hidden true map: the source \(P\) is uniform, and pushing it through that map gives the target \(Q\), so this couple is what reshapes \(Q\). The amber curve is the clean \(Q\); the ticks underneath it are the samples \(y_i\), scattered around \(Q\) by the noise σ. The <em>fit couple</em> \((\mu, L)\) is instead the regularity you assume when reconstructing the map, and Best fit looks for the couple that recovers it best. The fit is computed exactly in the browser by coordinate descent on the slopes; in higher dimension the same estimator becomes the convex QCQP of the paper.
-            </p>
-          </section>
-
-          <!-- ===================== REGULARITY 2D ===================== -->
-          <section class="demo-panel" data-panel="reg2d" role="tabpanel" hidden>
-            <h3 class="demo-heading">Regularity as Regularization · two dimensions</h3>
-            <p>
-              In two dimensions the ordering trick disappears. This toy version keeps the structure of the paper: it alternates a Sinkhorn OT step between the current mapped points and the target cloud, then a small browser-side QCQP-style projection enforcing smooth and strongly convex interpolation constraints. One panel shows the unpaired samples; the other compares true and estimated potential level sets.
-            </p>
-            <div class="demo-card">
-              <div class="demo-canvas-wrap">
-                <canvas id="reg2d-canvas" width="900" height="620"></canvas>
-              </div>
-              <div class="demo-controls">
-                <button class="btn" id="reg2d-resample">Resample</button>
-                <button class="btn" id="reg2d-run">Run</button>
-                <button class="btn ghost" id="reg2d-reset">Reset map</button>
-              </div>
-              <div class="demo-controls">
-                <div class="rangefield">
-                  <span class="rangelabel">fit couple&nbsp; (μ, L) = <b id="reg2d-fit-val">(1.25, 2.35)</b></span>
-                  <div class="dualrange" id="reg2d-fit-dr"></div>
-                </div>
-                <div class="rangefield">
-                  <span class="rangelabel">true couple&nbsp; (μ*, L*) = <b id="reg2d-true-val">(1.25, 2.35)</b></span>
-                  <div class="dualrange" id="reg2d-true-dr"></div>
-                </div>
-              </div>
-              <div class="demo-legend">
-                <span><span class="line-swatch" style="border-color:#6f6a62;opacity:.35"></span>true potential level sets</span>
-                <span><span class="line-swatch dashed" style="border-color:#a4452f"></span>estimated level sets</span>
-                <span><span class="swatch" style="background:#3a6ea5"></span>source \(x_i\)</span>
-                <span><span class="swatch" style="background:#c47d33"></span>target \(y_j\)</span>
-                <span><span class="swatch" style="background:#a4452f"></span>current \(z_i=\nabla f(x_i)\)</span>
-              </div>
-              <div class="demo-readout">
-                <span>alternations: <b id="reg2d-iter">0</b></span>
-                <span>last map change: <b id="reg2d-delta">…</b></span>
-                <span>Sinkhorn objective: <b id="reg2d-cost">…</b></span>
-                <span>max interpolation violation: <b id="reg2d-viol">…</b></span>
-                <span>status: <b id="reg2d-status">ready</b></span>
-              </div>
-            </div>
-            <p class="demo-note">
-              This is intentionally small: \(n=50\). The target points are an independent sample from \(T^*_\#P\), obtained by pushing hidden source samples through a translated rotated quadratic map with a small sinusoidal convex perturbation, \(T^*=\nabla f^*\). The OT step is entropic, the QCQP step is approximated by a few penalty-gradient sweeps, and the estimated level sets evaluate \(\hat f(x)\) with the out-of-sample problem in equation (2) of the paper. The point is to show how sparse samples induce a potential across the source domain, not to replace a production conic/QCQP solver.
             </p>
           </section>
 

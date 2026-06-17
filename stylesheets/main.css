@@ -172,7 +172,7 @@ summary:hover { color: var(--accent); }
   box-shadow: var(--shadow);
 }
 .demo-canvas-wrap { position: relative; width: 100%; }
-#srw-canvas, #reg-canvas, #reg2d-canvas {
+#srw-canvas, #reg-canvas {
   display: block; width: 100%; height: auto;
   max-width: 100%;
   background: var(--bg-soft);
