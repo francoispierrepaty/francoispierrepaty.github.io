@@ -167,16 +167,23 @@
   // -------- canvas geometry ---------------------------------
   var dpr = Math.max(1, window.devicePixelRatio || 1);
   var W = 0, H = 0, pad = 26, scale = 1, ox = 0, oy = 0;
+  var ptR = 5;                // dot radius, rescaled with the drawing area
 
   function fit() {
     var cssW = canvas.clientWidth || 900;
-    var cssH = Math.round(cssW * 0.56);
+    // On narrow screens make the canvas closer to square and trim the
+    // padding so the inner drawing square (and thus the clouds) keeps as
+    // many pixels as possible — otherwise the points look cramped.
+    var aspect = cssW < 560 ? 0.92 : 0.56;
+    pad = cssW < 560 ? 12 : 26;
+    var cssH = Math.round(cssW * aspect);
     canvas.width = Math.round(cssW * dpr);
     canvas.height = Math.round(cssH * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     W = cssW; H = cssH;
     var s = Math.min(W - 2 * pad, H - 2 * pad);
     scale = s; ox = (W - s) / 2; oy = (H - s) / 2;
+    ptR = Math.max(3, scale * 0.0155);   // keep dots proportional to the cloud
   }
   function px(p) { return [ox + p[0] * scale, oy + (1 - p[1]) * scale]; }
   function unpx(qx, qy) { return [(qx - ox) / scale, 1 - (qy - oy) / scale]; }
@@ -239,9 +246,10 @@
       return [mx + t * d[0], my + t * d[1]];
     }
     var all = X.concat(Y);
+    var tickR = Math.max(1, ptR * 0.32);
     for (var k = 0; k < all.length; k++) {
       var pr = px(proj(all[k]));
-      ctx.beginPath(); ctx.arc(pr[0], pr[1], 1.6, 0, 2 * Math.PI); ctx.fill();
+      ctx.beginPath(); ctx.arc(pr[0], pr[1], tickR, 0, 2 * Math.PI); ctx.fill();
     }
 
     // transport plan (optional)
@@ -263,8 +271,8 @@
     }
 
     // points
-    for (var p2 = 0; p2 < X.length; p2++) dot(X[p2], COL.x, 5);
-    for (var q2 = 0; q2 < Y.length; q2++) dot(Y[q2], COL.y, 5);
+    for (var p2 = 0; p2 < X.length; p2++) dot(X[p2], COL.x, ptR);
+    for (var q2 = 0; q2 < Y.length; q2++) dot(Y[q2], COL.y, ptR);
   }
 
   // -------- readout -----------------------------------------
