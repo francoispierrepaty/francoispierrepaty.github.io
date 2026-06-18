@@ -315,15 +315,48 @@
   // Layout geometry (CSS px). The figure is a coupling shown with its two
   // marginals on the margins: the heatmap is the matching, firm sizes are the
   // row sums (right), the worker distribution is the column sums (below).
-  var LAY = {
-    marginL: 104,  // rotated firm axis + "more skill" labels
-    marginR: 150,  // firm-size bars + label
-    top: 56,
-    histGap: 30,   // heatmap bottom -> histogram title
-    histH: 150,    // worker distribution height
-    bottomPad: 56, // shared worker-type axis labels
-    barMax: 78     // longest firm-size bar
-  };
+  // The desktop branch keeps the original fixed geometry untouched. Below a
+  // narrow canvas width (phones such as an iPhone 12 mini, where the canvas is
+  // only ~290 CSS px wide) the fixed margins would swallow the whole figure, so
+  // a compact branch shrinks margins, bars, fonts and label text instead.
+  var COMPACT_W = 440;
+  var LAY;
+
+  function setLayout(cssW) {
+    if (cssW >= COMPACT_W) {
+      LAY = {
+        compact: false,
+        marginL: 104,  // rotated firm axis + "more skill" labels
+        marginR: 150,  // firm-size bars + label
+        top: 56,
+        histGap: 30,   // heatmap bottom -> histogram title
+        histTitle: 18, // space reserved for the histogram title
+        histH: 150,    // worker distribution height
+        bottomPad: 56, // shared worker-type axis labels
+        barMax: 78,    // longest firm-size bar
+        barGap: 26,    // heatmap right edge -> firm-size bars
+        firmAxisOff: 74, // rotated "firm technology" label offset
+        gridMin: 150,
+        fs: 1
+      };
+    } else {
+      LAY = {
+        compact: true,
+        marginL: 40,
+        marginR: 72,
+        top: 44,
+        histGap: 22,
+        histTitle: 16,
+        histH: 74,
+        bottomPad: 46,
+        barMax: 48,
+        barGap: 12,
+        firmAxisOff: 27,
+        gridMin: 96,
+        fs: 0.86
+      };
+    }
+  }
 
   var INK = "#33312e";
   var MUTED = "#6f6a62";
@@ -331,8 +364,9 @@
 
   function fit() {
     var cssW = canvas.clientWidth || 900;
-    var grid = Math.max(150, cssW - LAY.marginL - LAY.marginR);
-    var cssH = LAY.top + grid + LAY.histGap + 18 + LAY.histH + LAY.bottomPad;
+    setLayout(cssW);
+    var grid = Math.max(LAY.gridMin, cssW - LAY.marginL - LAY.marginR);
+    var cssH = LAY.top + grid + LAY.histGap + LAY.histTitle + LAY.histH + LAY.bottomPad;
     canvas.width = Math.round(cssW * dpr);
     canvas.height = Math.round(cssH * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -372,6 +406,10 @@
     ctx.restore();
   }
 
+  function fsz(s) {
+    return s * LAY.fs;
+  }
+
   function roundRect(x, y, w, h, r) {
     r = Math.max(0, Math.min(r, w / 2, h / 2));
     ctx.beginPath();
@@ -390,8 +428,8 @@
     var left = LAY.marginL;
     var top = LAY.top;
     var grid = Math.min(W - LAY.marginL - LAY.marginR,
-                        H - LAY.top - LAY.histGap - 18 - LAY.histH - LAY.bottomPad);
-    grid = Math.max(150, grid);
+                        H - LAY.top - LAY.histGap - LAY.histTitle - LAY.histH - LAY.bottomPad);
+    grid = Math.max(LAY.gridMin, grid);
     var cell = grid / N;
     var right = left + grid;
     var bottom = top + grid;
@@ -414,9 +452,11 @@
     ctx.strokeRect(left + 0.5, top + 0.5, grid, grid);
 
     // ---- firm axis (rows) ----
-    label("firm technology", left - 74, top + grid / 2, { rotate: -Math.PI / 2, align: "center", size: 13.5, color: INK, weight: "600" });
-    label("more skill 1", left - 14, top + 5, { align: "right", size: 11.5, color: FAINT });
-    label("more skill 2", left - 14, bottom - 1, { align: "right", size: 11.5, color: FAINT });
+    label("firm technology", left - LAY.firmAxisOff, top + grid / 2, { rotate: -Math.PI / 2, align: "center", size: fsz(13.5), color: INK, weight: "600" });
+    if (!LAY.compact) {
+      label("more skill 1", left - 14, top + 5, { align: "right", size: 11.5, color: FAINT });
+      label("more skill 2", left - 14, bottom - 1, { align: "right", size: 11.5, color: FAINT });
+    }
 
     // ---- firm sizes (row marginal, on the right) ----
     // Drawn on a common, absolute scale across all models. Firm size is the
@@ -424,10 +464,10 @@
     // dashed line marks that equal-share size. In OT, EOT and WOT every firm
     // has size 1, so all bars reach the line; only WOTUK reallocates mass,
     // pushing some firms past it and leaving others short.
-    var barX = right + 26;
+    var barX = right + LAY.barGap;
     var unit = LAY.barMax / 2.6;   // pixels per unit of firm size
     var refX = barX + unit;        // equal-share reference (size = 1)
-    label("firm size", barX, top - 16, { weight: "600", color: INK, size: 14 });
+    label("firm size", barX, top - 16, { weight: "600", color: INK, size: fsz(14) });
 
     ctx.save();
     ctx.strokeStyle = "#c2bbac";
@@ -438,7 +478,7 @@
     ctx.lineTo(refX, bottom + 4);
     ctx.stroke();
     ctx.restore();
-    label("equal share", refX, bottom + 16, { align: "center", size: 10.5, color: FAINT, baseline: "top" });
+    label(LAY.compact ? "avg" : "equal share", refX, bottom + 16, { align: "center", size: fsz(10.5), color: FAINT, baseline: "top" });
 
     for (var s = 0; s < N; s++) {
       var bw = clamp(unit * data.sizes[s], 1.5, LAY.barMax);
@@ -450,9 +490,9 @@
     }
 
     // ---- worker distribution (column marginal, below, aligned to columns) ----
-    var histTop = bottom + LAY.histGap + 18;
+    var histTop = bottom + LAY.histGap + LAY.histTitle;
     var histH = LAY.histH;
-    label("worker distribution  ν", left, bottom + LAY.histGap + 2, { weight: "600", color: INK, size: 14 });
+    label("worker distribution  ν", left, bottom + LAY.histGap + 2, { weight: "600", color: INK, size: fsz(14) });
 
     var maxSupply = Math.max.apply(null, data.supply) || 1;
     // soft guide line at the top of the tallest bar
@@ -480,9 +520,21 @@
 
     // ---- shared worker-type axis (under heatmap + histogram) ----
     var axisY = histTop + histH + 22;
-    label("skill-1 specialists", left, axisY, { align: "left", size: 11.5, color: FAINT });
-    label("worker type", left + grid / 2, axisY, { align: "center", size: 13.5, color: INK, weight: "600" });
-    label("skill-2 specialists", right, axisY, { align: "right", size: 11.5, color: FAINT });
+    var leftLab = LAY.compact ? "skill 1" : "skill-1 specialists";
+    var rightLab = LAY.compact ? "skill 2" : "skill-2 specialists";
+    label(leftLab, left, axisY, { align: "left", size: fsz(11.5), color: FAINT });
+    label(rightLab, right, axisY, { align: "right", size: fsz(11.5), color: FAINT });
+
+    // The centered "worker type" caption is only drawn when it clears both edge
+    // labels; on a narrow grid (phones) it would overlap them, and the "worker
+    // distribution ν" title above already names the axis, so it is dropped.
+    ctx.font = "600 " + fsz(13.5) + "px Spectral, Georgia, serif";
+    var centerHalf = ctx.measureText("worker type").width / 2;
+    ctx.font = "400 " + fsz(11.5) + "px Spectral, Georgia, serif";
+    var edgeRoom = Math.max(ctx.measureText(leftLab).width, ctx.measureText(rightLab).width);
+    if (!LAY.compact && edgeRoom + centerHalf + 16 <= grid / 2) {
+      label("worker type", left + grid / 2, axisY, { align: "center", size: fsz(13.5), color: INK, weight: "600" });
+    }
 
     modelName.textContent = TEXT[model].name;
     concentrationEl.textContent = Math.round(data.concentration * 100) + "%";
