@@ -183,7 +183,7 @@
     W = cssW; H = cssH;
     var s = Math.min(W - 2 * pad, H - 2 * pad);
     scale = s; ox = (W - s) / 2; oy = (H - s) / 2;
-    ptR = Math.max(2.6, scale * 0.011);   // keep dots proportional to the cloud
+    ptR = Math.max(3, scale * 0.0155);   // keep dots proportional to the cloud
   }
   function px(p) { return [ox + p[0] * scale, oy + (1 - p[1]) * scale]; }
   function unpx(qx, qy) { return [(qx - ox) / scale, 1 - (qy - oy) / scale]; }
