@@ -172,7 +172,7 @@ summary:hover { color: var(--accent); }
   box-shadow: var(--shadow);
 }
 .demo-canvas-wrap { position: relative; width: 100%; }
-#srw-canvas, #reg-canvas, #econ-canvas {
+#srw-canvas, #reg-canvas, #adv-canvas, #econ-canvas {
   display: block; width: 100%; height: auto;
   max-width: 100%;
   background: var(--bg-soft);
@@ -224,13 +224,15 @@ summary:hover { color: var(--accent); }
 .line-swatch.dashed { border-top-style: dashed; }
 
 /* ---------- economics demo ---------- */
-.econ-models {
+.econ-models,
+.adv-modes {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin: 0 0 14px;
 }
-.econ-model {
+.econ-model,
+.adv-mode {
   font-family: inherit;
   font-size: .9rem;
   color: var(--muted);
@@ -241,8 +243,10 @@ summary:hover { color: var(--accent); }
   cursor: pointer;
   transition: color .15s ease, background .15s ease, border-color .15s ease;
 }
-.econ-model:hover { color: var(--accent); border-color: var(--accent); }
-.econ-model.active {
+.econ-model:hover,
+.adv-mode:hover { color: var(--accent); border-color: var(--accent); }
+.econ-model.active,
+.adv-mode.active {
   color: var(--bg);
   background: var(--accent);
   border-color: var(--accent);
@@ -275,6 +279,28 @@ summary:hover { color: var(--accent); }
 #research-teaser p a,
 #featured-demo .more-link a { white-space: normal; }
 .demo-note { font-size: .9rem; color: var(--muted); margin-top: 12px; }
+.adv-equation {
+  background: var(--bg-soft);
+  border: 1px solid var(--rule);
+  border-radius: 8px 8px 0 0;
+  color: var(--ink);
+  font-size: .92rem;
+  margin: 0;
+  overflow-x: auto;
+  padding: 10px 12px;
+}
+.adv-explainer {
+  background: var(--bg-soft);
+  border: 1px solid var(--rule);
+  border-top: 0;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 0 8px 8px;
+  color: var(--ink);
+  font-size: .92rem;
+  line-height: 1.55;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+}
 
 /* ---------- footer ---------- */
 .foot { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--rule); color: var(--faint); font-size: .85rem; text-align: center; }

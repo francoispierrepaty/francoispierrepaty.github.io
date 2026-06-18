@@ -37,11 +37,12 @@
           <section id="demos-intro">
             <h2>Interactive demos</h2>
             <p>
-              Three of my papers, running live in your browser on small toy problems. Pick a demo below, drag the clouds and move the sliders.
+              Four of my papers, running live in your browser on small toy problems. Pick a demo below, drag the clouds and move the sliders.
             </p>
             <div class="demo-tabs" role="tablist">
               <button class="demo-tab-btn" data-tab="srw" role="tab">Subspace Robust Wasserstein</button>
               <button class="demo-tab-btn" data-tab="reg1d" role="tab">Regularity as Regularization</button>
+              <button class="demo-tab-btn" data-tab="adversarial" role="tab">Ground Cost Adversarial OT</button>
               <button class="demo-tab-btn" data-tab="econ" role="tab">Weak OT in Economics</button>
             </div>
           </section>
@@ -166,6 +167,71 @@
             </p>
           </section>
 
+          <!-- ===================== GROUND COST ADVERSARIAL OT ===================== -->
+          <section class="demo-panel" data-panel="adversarial" role="tabpanel" hidden>
+            <h3 class="demo-heading">Regularized OT is Ground Cost Adversarial</h3>
+            <p>
+              This demo illustrates <a href="http://proceedings.mlr.press/v119/paty20a.html">Regularized Optimal Transport is Ground Cost Adversarial</a> (Paty and Cuturi, ICML 2020). We work in the discrete setting, with a source distribution \(\mu\) supported on points \(i=1,\dots,n\) and a target distribution \(\nu\) supported on points \(j=1,\dots,m\). A <em>transport plan</em> \(\pi\) is a matrix whose entry \(\pi_{ij}\ge 0\) says how much mass is moved from \(i\) to \(j\); moving it there incurs a cost \(c_0(i,j)\,\pi_{ij}\). A plan is admissible if it ships out exactly the mass each source has and delivers exactly the mass each target wants, that is \(\sum_j \pi_{ij}=\mu_i\) and \(\sum_i \pi_{ij}=\nu_j\). We write \(\Pi(\mu,\nu)\) for this set of admissible plans.
+            </p>
+            <p>
+              Classical optimal transport picks the admissible plan of least total cost, and we write \(\mathcal{T}_c(\mu,\nu)\) for that minimum value when the ground cost is \(c\):
+            </p>
+            $$ \mathcal{T}_c(\mu,\nu)
+              \;=\;
+              \min_{\pi \in \Pi(\mu,\nu)} \langle c,\pi\rangle,
+              \qquad
+              \langle c,\pi\rangle = \sum_{ij} c(i,j)\,\pi_{ij}. $$
+            <p>
+              In practice one rarely solves this raw problem: a small convex regularizer \(\varepsilon R(\pi)\) is added to the plan \(\pi\) so that the solution is smoother and faster to compute. The message of the paper is that this regularizer is not just a numerical convenience. Adding \(\varepsilon R(\pi)\) to the cost of a fixed prior ground cost \(c_0\) is <em>exactly equivalent</em> to letting an adversary perturb the ground cost itself, away from \(c_0\), and then solving ordinary (unregularized) transport \(\mathcal{T}_c\) against that worst-case cost. In the discrete setting this equivalence reads
+            </p>
+            $$ \min_{\pi \in \Pi(\mu,\nu)} \langle c_0,\pi\rangle + \varepsilon R(\pi)
+              \;=\;
+              \sup_c \mathcal{T}_c(\mu,\nu)
+              - \varepsilon R^*\!\left({c-c_0\over\varepsilon}\right). $$
+            <p>
+              On the left is the usual regularized transport. On the right, an adversary searches over ground costs \(c\): it is rewarded for raising the transport cost \(\mathcal{T}_c(\mu,\nu)\), but pays the penalty \(\varepsilon R^*((c-c_0)/\varepsilon)\) for straying from the prior \(c_0\). The shape of that penalty, and so the kind of perturbation the adversary can afford, is set entirely by \(R^*\), the convex conjugate of the regularizer. Different regularizers therefore produce qualitatively different adversaries; switch between them with the buttons to see the specialized form of the identity and the cost it learns.
+            </p>
+            <div class="demo-card">
+              <div class="econ-models adv-modes" role="group" aria-label="Regularizer">
+                <button class="econ-model adv-mode active" data-regularizer="entropy">Entropy</button>
+                <button class="econ-model adv-mode" data-regularizer="quadratic">Quadratic</button>
+                <button class="econ-model adv-mode" data-regularizer="tsallis">Tsallis</button>
+                <button class="econ-model adv-mode" data-regularizer="capacity">Capacity</button>
+              </div>
+              <div class="adv-equation" id="adv-equation">
+                $$\min_{\pi\in\Pi(\mu,\nu)}\langle c_0,\pi\rangle+\varepsilon\sum_{ij}\pi_{ij}(\log\pi_{ij}-1)
+                =
+                \max_c \mathcal{T}_c(\mu,\nu)-\varepsilon\sum_{ij}\exp\!\left({c_{ij}-{c_0}_{ij}\over\varepsilon}\right).$$
+              </div>
+              <div class="adv-explainer" id="adv-explainer">
+                Entropic regularization uses \(R(\pi)=\sum_{ij}\pi_{ij}(\log\pi_{ij}-1)\), with conjugate \(R^*(s)=\sum_{ij}\exp(s_{ij})\). The penalty grows exponentially as a cost rises above \(c_0\), so the adversary nudges every cost a little but pays steeply for large moves: a soft perturbation spread around \(c_0\).
+              </div>
+              <div class="demo-canvas-wrap">
+                <canvas id="adv-canvas" width="900" height="620"></canvas>
+              </div>
+              <div class="demo-controls">
+                <label>Regularization&nbsp;ε
+                  <input type="range" id="adv-eps" min="0.01" max="0.20" step="0.002" value="0.060">
+                </label>
+              </div>
+              <div class="demo-legend">
+                <span><span class="swatch" style="background:#2a6f7a"></span>source μ</span>
+                <span><span class="swatch" style="background:#a4452f"></span>target ν</span>
+                <span><span class="line-swatch" style="border-color:#6a6258"></span>transport plan</span>
+                <span><span class="swatch square" style="background:#123f4a"></span>large cost</span>
+                <span><span class="swatch square" style="background:#efe4cb"></span>small cost</span>
+                <span><span class="swatch square" style="background:#2a6f7a"></span>cost reduced</span>
+                <span><span class="swatch square" style="background:#a4452f"></span>cost increased</span>
+              </div>
+              <div class="demo-readout">
+                <span>regularizer: <b id="adv-reg-name">Entropy</b></span>
+                <span>plan entropy: <b id="adv-plan-entropy">…</b></span>
+                <span>active links: <b id="adv-active-links">…</b></span>
+                <span>adversarial cost spread: <b id="adv-cost-spread">…</b></span>
+              </div>
+            </div>
+          </section>
+
           <!-- ===================== ECONOMICS WOT ===================== -->
           <section class="demo-panel" data-panel="econ" role="tabpanel" hidden>
             <h3 class="demo-heading">Weak Optimal Transport in Economics</h3>
@@ -285,6 +351,7 @@
     <script src="javascripts/sidebar.js"></script>
     <script src="javascripts/srw.js"></script>
     <script src="javascripts/regularity.js"></script>
+    <script src="javascripts/adversarial.js"></script>
     <script src="javascripts/economics.js"></script>
     <script src="javascripts/demos-tabs.js"></script>
   </body>
