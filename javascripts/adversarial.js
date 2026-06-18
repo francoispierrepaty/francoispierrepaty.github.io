@@ -244,9 +244,24 @@
     draw();
   }
 
+  function mobileGeom(w) {
+    var pad = 24, top = 42, gap = 22;
+    var matrixSize = Math.min(118, (w - 2 * pad - 3 * gap) / 4);
+    var py = top + matrixSize + 54;
+    var compactW = w - 2 * pad;
+    var compactH = Math.max(150, Math.min(compactW, 240));
+    return { matrixSize: matrixSize, py: py, compactW: compactW, compactH: compactH };
+  }
+
   function fit() {
     var cssW = canvas.clientWidth || 900;
-    var cssH = cssW < 560 ? Math.round(cssW * 1.08) : Math.round(cssW * 0.78);
+    var cssH;
+    if (cssW < 560) {
+      var g = mobileGeom(cssW);
+      cssH = g.py + 2 * g.compactH + 34 + 20;
+    } else {
+      cssH = Math.round(cssW * 0.78);
+    }
     canvas.width = Math.round(cssW * dpr);
     canvas.height = Math.round(cssH * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -619,17 +634,15 @@
     var matrixSize = Math.min(118, (W - 2 * pad - geomW - 4 * gap) / 4);
     var costRange = combinedRange(c0, c);
     if (W < 560) {
-      matrixSize = Math.min(118, (W - 2 * pad - 3 * gap) / 4);
+      var g = mobileGeom(W);
+      matrixSize = g.matrixSize;
       var mx0 = Math.max(pad, (W - 4 * matrixSize - 3 * gap) / 2);
       drawMatrix(plan, mx0, top, matrixSize, "plan", 1 / NX);
       drawMatrix(c0, mx0 + matrixSize + gap, top, matrixSize, "prior c0", null, costRange);
       drawMatrix(c, mx0 + 2 * (matrixSize + gap), top, matrixSize, "adv c", null, costRange);
       drawSignedMatrix(costDelta(), mx0 + 3 * (matrixSize + gap), top, matrixSize, "change");
-      var py = top + matrixSize + 54;
-      var compactW = W - 2 * pad;
-      var compactH = Math.max(150, Math.min(compactW, (H - py - 34) / 2));
-      drawOriginalGeometry(pad, py, compactW, compactH);
-      drawWarpedGeometry(pad, py + compactH + 34, compactW, compactH);
+      drawOriginalGeometry(pad, g.py, g.compactW, g.compactH);
+      drawWarpedGeometry(pad, g.py + g.compactH + 34, g.compactW, g.compactH);
     } else {
       matrixSize = Math.min(128, (W - 2 * pad - 3 * gap) / 4);
       var mx = Math.max(pad, (W - 4 * matrixSize - 3 * gap) / 2);
