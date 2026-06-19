@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ basics.name }} — CV</title>
+  <link rel="stylesheet" href="cv.css">
+</head>
+<body>
+{% macro daterail(period) -%}
+  {%- set p = period.split('–') -%}
+  <div class="when"><span class="from">{{ p[0] | trim }}</span>{% if p | length > 1 %}<span class="to">– {{ p[1] | trim }}</span>{% endif %}</div>
+{%- endmacro %}
+
+  {# ---------- Header ---------- #}
+  <header class="header">
+    <div class="name">{{ basics.name }}</div>
+    <div class="tagline">{{ basics.label }}</div>
+    <div class="contact">
+      <a href="mailto:{{ basics.contact.email }}">{{ basics.contact.email }}</a>
+      <span class="sep">·</span>
+      <a href="{{ basics.contact.homepage_url }}">{{ basics.contact.homepage }}</a>
+      <span class="sep">·</span>
+      <a href="{{ basics.contact.github_url }}">GitHub</a>
+      <span class="sep">·</span>
+      <a href="{{ basics.contact.scholar_url }}">Google Scholar</a>
+      <span class="sep">·</span>
+      <a href="{{ basics.contact.linkedin_url }}">LinkedIn</a>
+    </div>
+  </header>
+
+  {% if basics.summary %}
+  <p class="summary">{{ basics.summary }}</p>
+  {% endif %}
+
+  {# ---------- Experience ---------- #}
+  <section>
+    <h2>Experience</h2>
+    {% for e in experience %}
+    <div class="entry">
+      {{ daterail(e.period) }}
+      <div class="what">
+        <div class="role">{{ e.role }}</div>
+        <div class="org">{% if e.url %}<a href="{{ e.url }}">{{ e.org }}</a>{% else %}{{ e.org }}{% endif %}{% if e.location %} <span class="loc">· {{ e.location }}</span>{% endif %}</div>
+        {% if e.highlights %}
+        <ul class="bullets">
+          {% for h in e.highlights %}<li>{{ h }}</li>{% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  {# ---------- Education ---------- #}
+  <section>
+    <h2>Education</h2>
+    {% for ed in education %}
+    <div class="entry">
+      {{ daterail(ed.period) }}
+      <div class="what">
+        <div class="role">{{ ed.degree }}</div>
+        <div class="org">{{ ed.org }}{% if ed.location %} <span class="loc">· {{ ed.location }}</span>{% endif %}</div>
+        {% if ed.detail %}<div class="detail">{{ ed.detail }}</div>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  {# ---------- Publications ---------- #}
+  <section>
+    <h2>Publications</h2>
+    {% set n = publications | length %}
+    {% for p in publications %}
+    <div class="pub">
+      <div class="pub-num">{{ n - loop.index0 }}.</div>
+      <div class="pub-body">
+        <div class="pub-title">{% if p.url %}<a href="{{ p.url }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</div>
+        <div class="pub-meta">{{ p.authors }} · <em>{{ p.venue }} {{ p.year }}</em>{% if p.award %} · <span class="award">{{ p.award }}</span>{% endif %}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  {# ---------- Awards ---------- #}
+  <section>
+    <h2>Awards &amp; Distinctions</h2>
+    <ul class="plain">
+      {% for a in awards %}<li><strong>{{ a.year }}</strong> · {{ a.text }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  {# ---------- Talks ---------- #}
+  <section>
+    <h2>Talks, Tutorials &amp; Conferences</h2>
+    {% for g in talks %}
+    <div class="talk-group">
+      <div class="label">{{ g.group }}</div>
+      <ul class="talk-list">
+        {% for t in g.entries %}<li>{{ t }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </section>
+
+  {# ---------- Teaching ---------- #}
+  <section>
+    <h2>Teaching</h2>
+    {% for t in teaching %}
+    <div class="entry">
+      {{ daterail(t.period) }}
+      <div class="what">
+        <div class="role">{{ t.org }}</div>
+        <ul class="bullets">
+          {% for i in t.entries %}<li>{{ i }}</li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  {# ---------- Service ---------- #}
+  <section>
+    <h2>Service to the Community</h2>
+    <ul class="plain">
+      {% for s in service %}<li>{{ s }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  {# ---------- Skills & languages ---------- #}
+  <section>
+    <h2>Skills &amp; Languages</h2>
+    {% for s in skills %}
+    <div class="kv"><div class="k">{{ s.category }}</div><div class="v">{{ s.detail }}</div></div>
+    {% endfor %}
+    <div class="kv">
+      <div class="k">Languages</div>
+      <div class="v lang-row">{% for l in languages %}<b>{{ l.name }}</b> <span class="lvl">({{ l.level }})</span>{% if not loop.last %}<span class="sep">·</span>{% endif %}{% endfor %}</div>
+    </div>
+  </section>
+
+</body>
+</html>

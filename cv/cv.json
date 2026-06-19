@@ -1,0 +1,283 @@
+{
+  "basics": {
+    "name": "François-Pierre Paty",
+    "label": "Applied mathematics · Machine learning · Optimal transport · Time series · Operations research",
+    "summary": "Applied mathematician (PhD, École Polytechnique engineer) working at the intersection of machine learning, optimization and operations research. I built the entire R&D of an AI startup (Ida, acquired by RELEX Solutions) from scratch, published at top machine-learning venues (ICML, AISTATS) on algorithmic optimal transport, and run a Chinese-learning platform and newsletter that reach more than 25,000 people worldwide.",
+    "nationality": "French",
+    "contact": {
+      "email": "francoispierre.paty@gmail.com",
+      "homepage": "francoispierrepaty.github.io",
+      "homepage_url": "https://francoispierrepaty.github.io",
+      "github": "francoispierrepaty",
+      "github_url": "https://github.com/francoispierrepaty",
+      "scholar_url": "https://scholar.google.fr/citations?user=brDW8E8AAAAJ",
+      "arxiv_url": "https://arxiv.org/a/paty_f_1",
+      "linkedin": "francois-pierre-paty",
+      "linkedin_url": "https://www.linkedin.com/in/francois-pierre-paty"
+    }
+  },
+  "experience": [
+    {
+      "period": "Sept 2025 – present",
+      "role": "Visiting Professor of Mathematics",
+      "org": "École Centrale de Pékin (Beihang University)",
+      "location": "Beijing, China",
+      "url": "https://ecpknfr.buaa.edu.cn",
+      "highlights": [
+        "Teaching mathematics (analysis, probability, differential calculus and equations) in French to Chinese students: lectures, tutorials and oral examinations (khôlles).",
+        "Distilling and presenting technical material to varied audiences, and collaborating in a multicultural, Chinese-speaking environment."
+      ]
+    },
+    {
+      "period": "Oct 2023 – Sept 2025",
+      "role": "Research Scientist & R&D Lead (first employee)",
+      "org": "Ida (acquired by RELEX Solutions in 2025, now RELEX Fresh)",
+      "location": "Paris, France",
+      "url": "https://www.relexsolutions.com",
+      "highlights": [
+        "Startup optimizing fresh-food orders for grocery retailers. Built the entire R&D pipeline from scratch: research, implementation, production deployment and fast iteration in close contact with field data and data engineers.",
+        "Impact: 30–50% reduction in food waste, 3 margin points gained, deployment across hundreds of stores in Europe.",
+        "Modeling: time-series forecasting (ML), stock reliability (HMM), order optimization (MILP, MDP, dynamic programming).",
+        "Production: deployment and monitoring in Python, Git and CI/CD.",
+        "Mentored MSc-level data-science interns; led technical presentations to clients and in tenders."
+      ]
+    },
+    {
+      "period": "May 2022 – present",
+      "role": "Founder & creator",
+      "org": "HSK Level & Chinese Grammar Gems",
+      "location": "Worldwide",
+      "url": "https://www.hsklevel.com",
+      "highlights": [
+        "Chinese-proficiency testing platform (120,000+ tests, 5M answers) and a Substack Bestseller newsletter with 25,000+ subscribers worldwide.",
+        "Full-stack development, algorithmic modeling and AI-assisted app building.",
+        "Growing recurring revenue (+50% in 2025); building a new app integrating generative AI."
+      ]
+    },
+    {
+      "period": "Sept 2021 – April 2022",
+      "role": "Postdoctoral Researcher",
+      "org": "CREST, CNRS",
+      "location": "Palaiseau, France",
+      "url": "https://crest.science",
+      "highlights": [
+        "Developed novel machine-learning algorithms with applications in economics; optimal transport applied to labor-market modeling, with numerical simulations in Python (JAX)."
+      ]
+    },
+    {
+      "period": "Sept 2018 – Aug 2021",
+      "role": "PhD Researcher & Teaching Assistant",
+      "org": "ENSAE Paris, Institut Polytechnique de Paris",
+      "location": "Palaiseau, France",
+      "url": "https://www.ensae.fr/en/",
+      "highlights": [
+        "Algorithmic optimal transport under the supervision of Marco Cuturi (CREST funding).",
+        "3 publications (ICML ×2, AISTATS) including a Notable Paper Award; 13 talks at international conferences and seminars.",
+        "Teaching assistant in mathematics, optimization, machine learning and deep learning (BSc and MSc levels)."
+      ]
+    },
+    {
+      "period": "April 2017 – Aug 2017",
+      "role": "Research Intern, Applied Mathematics",
+      "org": "EDF R&D & Finance for Energy Market Research Centre",
+      "location": "Palaiseau, France",
+      "url": "https://patents.google.com/patent/FR3075969B1/fr",
+      "highlights": [
+        "Adapted sparse-deconvolution techniques to missing-data imputation for financial time series. Received the congratulations of the Applied Mathematics department of École polytechnique; a patent was filed by EDF (FR3075969B1)."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "period": "2018 – 2021",
+      "degree": "PhD in Applied Mathematics and Machine Learning",
+      "org": "Institut Polytechnique de Paris (ENSAE)",
+      "location": "Palaiseau, France",
+      "detail": "Thesis: “Optimal transport in high dimension: obtaining regularity and robustness using convexity and projections”, advised by Marco Cuturi."
+    },
+    {
+      "period": "2017 – 2018",
+      "degree": "MSc in Statistics and Machine Learning (Mathématiques de l'Aléatoire, M2)",
+      "org": "Université Paris-Sud (Paris-Saclay)",
+      "location": "Orsay, France",
+      "detail": "Advanced courses in theoretical statistics and machine learning."
+    },
+    {
+      "period": "2017 – 2018",
+      "degree": "Engineering degree (Data Science track)",
+      "org": "ENSAE Paris",
+      "location": "Palaiseau, France",
+      "detail": "Specialized in statistics and data science."
+    },
+    {
+      "period": "2014 – 2018",
+      "degree": "Ingénieur polytechnicien (X2014)",
+      "org": "École Polytechnique",
+      "location": "Palaiseau, France",
+      "detail": "Applied mathematics, with a focus on statistics, probability and data analysis."
+    },
+    {
+      "period": "2012 – 2014",
+      "degree": "Classe préparatoire (MP)",
+      "org": "Lycée Louis-le-Grand",
+      "location": "Paris, France",
+      "detail": "Intensive mathematics and physics, preparing for the competitive entrance examinations to the Grandes Écoles."
+    }
+  ],
+  "publications": [
+    {
+      "title": "Algorithms for Weak Optimal Transport with an Application to Economics",
+      "authors": "F-P. Paty, P. Choné, F. Kramarz",
+      "venue": "Preprint",
+      "year": "2022",
+      "url": "https://arxiv.org/abs/2205.09825",
+      "award": null
+    },
+    {
+      "title": "Optimal transport in high dimension: obtaining regularity and robustness using convexity and projections",
+      "authors": "F-P. Paty",
+      "venue": "PhD thesis, Institut Polytechnique de Paris",
+      "year": "2021",
+      "url": "https://theses.hal.science/tel-03316856v1",
+      "award": null
+    },
+    {
+      "title": "Regularized Optimal Transport is Ground Cost Adversarial",
+      "authors": "F-P. Paty, M. Cuturi",
+      "venue": "International Conference on Machine Learning (ICML)",
+      "year": "2020",
+      "url": "http://proceedings.mlr.press/v119/paty20a.html",
+      "award": null
+    },
+    {
+      "title": "Regularity as Regularization: Smooth and Strongly Convex Brenier Potentials in Optimal Transport",
+      "authors": "F-P. Paty, A. d'Aspremont, M. Cuturi",
+      "venue": "International Conference on Artificial Intelligence and Statistics (AISTATS)",
+      "year": "2020",
+      "url": "http://proceedings.mlr.press/v108/paty20a.html",
+      "award": "Notable Paper Award (top 3 of 423 accepted papers)"
+    },
+    {
+      "title": "Subspace Robust Wasserstein Distances",
+      "authors": "F-P. Paty, M. Cuturi",
+      "venue": "International Conference on Machine Learning (ICML)",
+      "year": "2019",
+      "url": "http://proceedings.mlr.press/v97/paty19a.html",
+      "award": "Oral presentation (top 20% of accepted papers)"
+    }
+  ],
+  "awards": [
+    {
+      "year": "2020",
+      "text": "Notable Paper Award (top 3 of 423 accepted papers), International Conference on Artificial Intelligence and Statistics (AISTATS)."
+    },
+    {
+      "year": "2019",
+      "text": "Oral presentation (top 20% of accepted papers), International Conference on Machine Learning (ICML)."
+    },
+    {
+      "year": "2017",
+      "text": "Congratulations of the Applied Mathematics department, École polytechnique."
+    }
+  ],
+  "talks": [
+    {
+      "group": "Conferences",
+      "entries": [
+        "AISTATS 2020 — contributed talk (online), Aug 2020.",
+        "ICML 2020 — contributed talk (online), Jul 2020.",
+        "ICML 2019 — 20-minute oral presentation, Long Beach, Jun 2019."
+      ]
+    },
+    {
+      "group": "Seminars",
+      "entries": [
+        "New Monge Problems seminar, Université Gustave Eiffel, Jun 2022.",
+        "Mokaplan team seminar, INRIA Paris, May 2022.",
+        "Image, Optimization and Probability seminar, Institut de Mathématiques de Bordeaux, Mar 2021.",
+        "EDMH PhD students seminar, Université Paris-Saclay, Mar 2021.",
+        "Learning meets Astrophysics seminar day, CEA Saclay, Jan 2020.",
+        "Stat·Eco·ML seminar, ENSAE Paris, Nov 2019.",
+        "Le Séminaire Palaisien, INRIA Saclay, Nov 2019."
+      ]
+    },
+    {
+      "group": "Summer schools",
+      "entries": [
+        "Computational optimal transport tutorial, Machine Learning Summer School (MLSS), Moscow, Aug 2019.",
+        "Saint-Flour Probability Summer School, Jul 2019."
+      ]
+    },
+    {
+      "group": "Workshops (poster / participant)",
+      "entries": [
+        "Paris workshop on optimal transport with applications to economics and statistics, Sciences Po Paris, Oct 2021.",
+        "Poster, NeurIPS Optimal Transport and Machine Learning Workshop, Vancouver, Dec 2019.",
+        "People in Optimal Transportation and Applications, Cortona, Jun 2019.",
+        "Poster, Optimization and Statistical Learning workshop, Les Houches, Mar 2019."
+      ]
+    }
+  ],
+  "teaching": [
+    {
+      "period": "2025 – 2026",
+      "org": "École Centrale de Pékin (Beihang University)",
+      "entries": [
+        "Lectures (cours magistraux, in French) in advanced analysis and probability.",
+        "Tutorials in analysis, differential calculus and differential equations.",
+        "Oral examinations (khôlles)."
+      ]
+    },
+    {
+      "period": "Dec 2024",
+      "org": "École Nationale des Ponts et Chaussées",
+      "entries": [
+        "Invited course on operations research."
+      ]
+    },
+    {
+      "period": "2018 – 2021",
+      "org": "ENSAE Paris — Teaching Assistant",
+      "entries": [
+        "Mathematics (in French): Topology and Functional Analysis (BSc); Differentiable Optimization (BSc); Mathematical Statistics (MSc).",
+        "Computer science (in English): Geometric Methods in Machine Learning (MSc); Stochastic Optimization and Automatic Differentiation for ML (MSc); Optimal Transport (MSc); Deep Learning: Models and Optimization (MSc)."
+      ]
+    }
+  ],
+  "service": [
+    "Conference reviewer: AISTATS 2020, ICML 2020, NeurIPS 2020.",
+    "Co-organizer of the Statistics, Econometrics, Machine Learning (Stat·Eco·ML) seminar, ENSAE Paris, 2019–2021."
+  ],
+  "skills": [
+    {
+      "category": "Machine learning",
+      "detail": "Time series and forecasting, optimal transport, probabilistic models (HMM), deep learning, LLMs and generative AI."
+    },
+    {
+      "category": "Optimization & OR",
+      "detail": "MILP, dynamic programming, MDPs, operations research."
+    },
+    {
+      "category": "Programming",
+      "detail": "Python (JAX, scikit-learn, PyTorch, cvxpy), SQL, Git, CI/CD, React, Claude Code."
+    }
+  ],
+  "languages": [
+    {
+      "name": "French",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Fluent"
+    },
+    {
+      "name": "Italian",
+      "level": "Conversational"
+    },
+    {
+      "name": "Chinese",
+      "level": "HSK5"
+    }
+  ]
+}

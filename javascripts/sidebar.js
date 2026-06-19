@@ -8,7 +8,7 @@
 (function () {
   "use strict";
 
-  var CV = "assets/cv/CV_English_academia_2022.pdf";
+  var CV = "assets/cv/cv.pdf";
 
   var TABS = [
     { id: "home",     label: "Home",     href: "index.html" },
