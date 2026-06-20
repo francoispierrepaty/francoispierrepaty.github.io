@@ -239,22 +239,19 @@
               This demo illustrates <a href="https://arxiv.org/abs/2205.09825">Algorithms for Weak Optimal Transport with an Application to Economics</a> (Paty, Choné and Kramarz, 2022). The economic question is: who works for whom, and what does the matching reveal about workers' skills and firms' technologies?
             </p>
             <p>
-              The model looks for the matching that maximizes total production. Firms have technology \(x\), workers have skill \(y\), and a matching says how much worker mass of each type is employed by each firm type. The figure shows that matching together with its two margins. In the central heatmap each row is a firm type and each column is a worker type, and darker cells mean the production-maximizing matching sends more of that worker type to that firm type. Aligned underneath the columns is the worker distribution \(\nu\); aligned beside the rows, on the right, are the firm sizes, the total mass each firm type hires. In OT, entropic OT and WOT these row totals are fixed and equal; only WOTUK lets them move.
+              Picture an economy with many firms and many workers. Each firm has a <em>technology</em> \(x\), and each worker has a <em>skill</em> \(y\). The question is who works for whom: a <em>matching</em> says how much worker mass of each type is employed by each firm type. Different pairings produce different amounts of output, and the model looks for the matching that maximizes total production across the whole economy. The paper studies four versions of this problem, from the simplest pairing rule to the richest, and the demo lets you compare them.
             </p>
             <p>
-              Production uses a constant-elasticity-of-substitution (CES) function. A worker of type \(y=(y_1,y_2)\) carries a mix of two skills, and a firm of technology \(\alpha=(\alpha_1,\alpha_2)\) weights them by how much it relies on each:
+              Production starts from a constant-elasticity-of-substitution (CES) function. A worker of type \(y=(y_1,y_2)\) carries a mix of two skills, and a firm of technology \(\alpha=(\alpha_1,\alpha_2)\) weights them by how much it relies on each:
             </p>
             $$ F(\alpha,y)
               =
               \left(\alpha_1 y_1^\rho + \alpha_2 y_2^\rho\right)^{1/\rho}. $$
             <p>
-              In the demo the firm rows run from skill-1-intensive to skill-2-intensive, \(\alpha_i=(1-s_i,s_i)\), and the worker columns are a fixed grid \(y_j=(1-t_j,t_j)\) from one specialist extreme to the other. Maximizing production is the same problem as the optimal transport with cost \(c=-F\).
+              Maximizing total production over all matchings is exactly an optimal transport problem, with transport cost \(c=-F\): the more a firm-worker pairing produces, the cheaper it is to transport. The four models below all share this production function and differ only in what they allow a "match" to be.
             </p>
             <p>
-              The two sliders reshape these inputs. <em>Firm specialization</em> spreads the firm technologies \(\alpha_i\) out from a tight mixed cluster toward the two specialist extremes. <em>Worker population</em> reshapes \(\nu\): the skill positions stay fixed, but their weights shift from specialists piled at the extremes to generalists massed in the middle.
-            </p>
-            <p>
-              Classical optimal transport treats production as pairwise: a firm of type \(x\) hiring a worker of type \(y\) produces \(F(x,y)\). Weak optimal transport lets the production of a firm depend on the whole group of workers it hires, written as a distribution \(\pi_x\). In barycentric WOT, only the average skill of that group matters. In WOTUK, the kernel is unnormalized, so a firm's size is also chosen by the model instead of being fixed in advance.
+              Classical optimal transport treats production as pairwise: a firm of type \(x\) hiring a worker of type \(y\) produces \(F(x,y)\). Weak optimal transport instead lets the production of a firm depend on the whole group of workers it hires, written as a distribution \(\pi_x\). In barycentric WOT, only the average skill of that group matters. In WOTUK, that per-firm kernel \(\pi_x\) is no longer required to sum to one, so a firm's size (its total mass) is also chosen by the model instead of being fixed in advance. The four buttons in the demo walk through these in turn.
             </p>
             <p>
               Let \(\mu\) be the distribution of firm types, \(\nu\) the distribution of worker types, and \(\Pi(\mu,\nu)\) the set of matchings whose two marginals are fixed. Classical optimal transport chooses the matching \(\pi\) that maximizes total production:
@@ -290,7 +287,7 @@
               This is what lets a generalist firm combine specialists in two skills and obtain the same aggregate skill as from a generalist worker.
             </p>
             <p>
-              WOTUK goes one step further. The kernel \(q_x\) is no longer normalized: its total mass \(q_x(Y)\) is the size of firms of type \(x\). The model still exhausts the worker population, but it no longer forces every firm type to have the same size.
+              WOTUK goes one step further. Until now the per-firm distribution \(\pi_x\) was normalized to one, which fixed every firm type to the same size. We now drop that constraint and write the unnormalized version as \(q_x\): its total mass \(q_x(Y)\) is the size of firms of type \(x\), and the model gets to choose it. The worker population is still fully employed, but firm types no longer all have the same size.
             </p>
             $$ \operatorname{WOTUK}(\mu,\nu)
               = \sup_{\substack{q_x \in \mathcal{M}_+(Y)\\
@@ -308,6 +305,18 @@
                 +
                 \alpha_2 \left(\int_Y y_2\,\mathrm{d}q_x(y)\right)^\rho
               \right)^{1/\rho}. $$
+            <p>
+              That is the theory; here is how to read the figure. Both inputs are discrete, that is, weighted sums of point masses (Dirac deltas):
+            </p>
+            $$ \mu = \sum_i m_i\,\delta_{\alpha_i},
+              \qquad
+              \nu = \sum_j \nu_j\,\delta_{y_j}. $$
+            <p>
+              The firm distribution \(\mu\) places a mass \(m_i\) (the firm size) at each technology \(\alpha_i=(1-s_i,s_i)\); the worker distribution \(\nu\) places a weight \(\nu_j\) at each skill \(y_j=(1-t_j,t_j)\), and these skills form a fixed grid from one specialist extreme to the other. The figure shows the chosen matching together with these two margins. In the central heatmap each row is a firm type \(\alpha_i\) and each column is a worker type \(y_j\), and darker cells mean the production-maximizing matching sends more of that worker type to that firm type. Aligned underneath the columns is \(\nu\); aligned beside the rows, on the right, are the firm sizes \(m_i\). In OT, entropic OT and WOT these sizes are fixed and equal; only WOTUK lets them move.
+            </p>
+            <p>
+              The two sliders reshape the inputs in two different ways. <em>Firm specialization</em> moves the support of \(\mu\): it spreads the firm technologies \(\alpha_i\) out from a tight mixed cluster toward the two specialist extremes, while their sizes \(m_i\) stay equal (except under WOTUK). <em>Worker population</em> instead moves the weights of \(\nu\): the skill positions \(y_j\) stay fixed, but their weights \(\nu_j\) shift from specialists piled at the extremes to generalists massed in the middle. As you move the sliders, watch how the heatmap and the two margins respond under each of the four models.
+            </p>
             <div class="demo-card">
               <div class="econ-models" role="group" aria-label="Transport model">
                 <button class="econ-model active" data-model="ot">OT</button>
@@ -337,12 +346,6 @@
                 <span>firm-size spread: <b id="econ-size-spread">…</b></span>
               </div>
             </div>
-            <p class="demo-note" id="econ-explainer">
-              Each firm hires essentially one kind of worker: skill-1 firms take skill-1 specialists, skill-2 firms take skill-2 specialists. The matching is sharp and runs along the diagonal.
-            </p>
-            <p class="demo-note">
-              The heatmap is computed by the same primal mirror-ascent pattern as Algorithm 1 in the paper. OT and WOT use the multiplicative update \(P \leftarrow P \odot \exp(\gamma \nabla f(P))\), followed by a Sinkhorn KL projection onto \(\Pi(\mu,\nu)\). Entropic OT is a direct Sinkhorn solve with kernel \(\exp(F/\varepsilon)\). WOTUK uses the same multiplicative update, then the closed-form projection that rescales each worker column to the marginal \(\nu\), leaving firm sizes free.
-            </p>
           </section>
 
         </main>

@@ -22,7 +22,6 @@
   var modelName = document.getElementById("econ-model-name");
   var concentrationEl = document.getElementById("econ-concentration");
   var sizeSpreadEl = document.getElementById("econ-size-spread");
-  var explainerEl = document.getElementById("econ-explainer");
 
   var model = "ot";
   var N = 13;
@@ -35,22 +34,10 @@
   var H = 620;
 
   var TEXT = {
-    ot: {
-      name: "OT",
-      note: "Each firm hires essentially one kind of worker: skill-1 firms take skill-1 specialists, skill-2 firms take skill-2 specialists. The matching is sharp and runs along the diagonal."
-    },
-    eot: {
-      name: "Entropic OT",
-      note: "The same pairwise logic, blurred by an entropy term. Firms still favour nearby worker types, but the match spreads out into a soft band around the diagonal."
-    },
-    wot: {
-      name: "WOT",
-      note: ""
-    },
-    wotuk: {
-      name: "WOTUK",
-      note: "Firm size is chosen by the model rather than fixed in advance. The worker population is still fully employed, but some firm types grow large and others shrink, so a firm-size distribution emerges."
-    }
+    ot: { name: "OT" },
+    eot: { name: "Entropic OT" },
+    wot: { name: "WOT" },
+    wotuk: { name: "WOTUK" }
   };
 
   function clamp(x, lo, hi) {
@@ -539,7 +526,6 @@
     modelName.textContent = TEXT[model].name;
     concentrationEl.textContent = Math.round(data.concentration * 100) + "%";
     sizeSpreadEl.textContent = data.sizeSpread.toFixed(2);
-    explainerEl.textContent = TEXT[model].note;
   }
 
   modelButtons.forEach(function (button) {
