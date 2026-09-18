@@ -29,11 +29,12 @@
       '<img src="francoispierre.jpg" alt="François-Pierre Paty" class="portrait" />' +
     "</a>" +
     '<h1 class="name"><a href="index.html">François-Pierre Paty</a></h1>' +
-    '<p class="tagline">Applied mathematics · ML · optimal transport · time series · operations research</p>' +
+    '<p class="tagline">Member of Technical Staff<br><a href="https://www.theforecastingcompany.com/">The Forecasting Company</a></p>' +
     '<p class="social">' +
       '<a href="mailto:francoispierre.paty@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>' +
       '<a href="https://scholar.google.fr/citations?user=brDW8E8AAAAJ" title="Google Scholar"><i class="ai ai-google-scholar"></i></a>' +
       '<a href="https://arxiv.org/a/paty_f_1" title="arXiv"><i class="ai ai-arxiv"></i></a>' +
+      '<a href="https://www.linkedin.com/in/francois-pierre-paty" title="LinkedIn"><i class="fab fa-linkedin"></i></a>' +
       '<a href="https://github.com/francoispierrepaty" title="GitHub"><i class="fab fa-github"></i></a>' +
       '<a href="https://twitter.com/fpierrepaty" title="Twitter"><i class="fab fa-twitter"></i></a>' +
       '<a href="' + CV + '" title="Resume / CV"><i class="ai ai-cv"></i></a>' +

@@ -37,8 +37,8 @@
 
 html {
   font-family: "Spectral", Georgia, "Times New Roman", serif;
-  font-size: 9.5pt;
-  line-height: 1.45;
+  font-size: 9.2pt;
+  line-height: 1.4;
   color: var(--ink);
   background: #ffffff;
 }
@@ -98,7 +98,7 @@ h2 {
   display: grid;
   grid-template-columns: var(--rail) 1fr;
   column-gap: var(--gutter);
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   break-inside: avoid;
 }
 .entry:last-child { margin-bottom: 0; }

@@ -1,8 +1,8 @@
 {
   "basics": {
     "name": "François-Pierre Paty",
-    "label": "Applied mathematics · Machine learning · Optimal transport · Time series · Operations research",
-    "summary": "Applied mathematician (PhD, École Polytechnique engineer) working at the intersection of machine learning, optimization and operations research. I built the entire R&D of an AI startup (Ida, acquired by RELEX Solutions) from scratch, published at top machine-learning venues (ICML, AISTATS) on algorithmic optimal transport, and run a Chinese-learning platform and newsletter that reach more than 25,000 people worldwide.",
+    "label": "Member of Technical Staff · The Forecasting Company",
+    "summary": "Applied mathematician (PhD, École Polytechnique engineer) and Member of Technical Staff at The Forecasting Company, a research lab building foundation models for time-series forecasting. Previously, I built the R&D pipeline at Ida (acquired by RELEX Solutions), published on algorithmic optimal transport at ICML and AISTATS, and taught mathematics at École Centrale de Pékin. I also run a Chinese-learning platform and newsletter reaching more than 25,000 people worldwide.",
     "nationality": "French",
     "contact": {
       "email": "francoispierre.paty@gmail.com",
@@ -18,14 +18,23 @@
   },
   "experience": [
     {
-      "period": "Sept 2025 – present",
+      "period": "Sept 2026 – present",
+      "role": "Member of Technical Staff",
+      "org": "The Forecasting Company",
+      "url": "https://www.theforecastingcompany.com/",
+      "highlights": [
+        "Research lab building foundation models for time-series forecasting across domains."
+      ]
+    },
+    {
+      "period": "Sept 2025 – Aug 2026",
       "role": "Visiting Professor of Mathematics",
       "org": "École Centrale de Pékin (Beihang University)",
       "location": "Beijing, China",
       "url": "https://ecpknfr.buaa.edu.cn",
       "highlights": [
-        "Teaching mathematics (analysis, probability, differential calculus and equations) in French to Chinese students: lectures, tutorials and oral examinations (khôlles).",
-        "Distilling and presenting technical material to varied audiences, and collaborating in a multicultural, Chinese-speaking environment."
+        "Taught mathematics (analysis, probability, differential calculus and equations) in French to Chinese students: lectures, tutorials and oral examinations (khôlles).",
+        "Presented technical material to varied audiences and collaborated in a multicultural, Chinese-speaking environment."
       ]
     },
     {
