@@ -17,7 +17,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
     <link rel="stylesheet" href="stylesheets/main.css">
@@ -75,10 +75,10 @@
                 </label>
               </div>
               <div class="demo-legend">
-                <span><span class="swatch" style="background:#2a6f7a"></span>first cloud (μ)</span>
-                <span><span class="swatch" style="background:#a4452f"></span>second cloud (ν)</span>
-                <span><span class="line-swatch" style="border-color:#caa84a"></span>worst-case line (k = 1)</span>
-                <span><span class="line-swatch dashed" style="border-color:#6a6258"></span>PCA</span>
+                <span><span class="swatch" style="background:#2a45d6"></span>first cloud (μ)</span>
+                <span><span class="swatch" style="background:#1f8a5b"></span>second cloud (ν)</span>
+                <span><span class="line-swatch" style="border-color:#e0a11b"></span>worst-case line (k = 1)</span>
+                <span><span class="line-swatch dashed" style="border-color:#3a4060"></span>PCA</span>
               </div>
               <div class="demo-readout">
                 <span>robust distance S₁: <b id="srw-val">…</b></span>
@@ -149,12 +149,12 @@
                 </div>
               </div>
               <div class="demo-legend">
-                <span><span class="swatch" style="background:#3a6ea5"></span>source P</span>
+                <span><span class="swatch" style="background:#2a45d6"></span>source P</span>
                 <span><span class="swatch" style="background:#c47d33"></span>target Q</span>
-                <span><span class="line-swatch" style="border-color:#4e9b5b"></span>true map</span>
-                <span><span class="line-swatch" style="border-color:#a4452f"></span>regularized map (μ ≤ T' ≤ L)</span>
+                <span><span class="line-swatch" style="border-color:#1f8a5b"></span>true map</span>
+                <span><span class="line-swatch" style="border-color:#d13b30"></span>regularized map (μ ≤ T' ≤ L)</span>
                 <span><span class="line-swatch" style="border-color:#7d6fa3"></span>plain isotonic (μ=0, L=∞)</span>
-                <span><span class="line-swatch dashed" style="border-color:#8a857b"></span>unconstrained fit</span>
+                <span><span class="line-swatch dashed" style="border-color:#8a90a8"></span>unconstrained fit</span>
               </div>
               <div class="demo-readout">
                 <span>distance to the true map. Regularized fit: <b id="reg-rmse">…</b></span>
@@ -215,13 +215,13 @@
                 </label>
               </div>
               <div class="demo-legend">
-                <span><span class="swatch" style="background:#2a6f7a"></span>source μ</span>
-                <span><span class="swatch" style="background:#a4452f"></span>target ν</span>
-                <span><span class="line-swatch" style="border-color:#6a6258"></span>transport plan</span>
-                <span><span class="swatch square" style="background:#123f4a"></span>large cost</span>
+                <span><span class="swatch" style="background:#2a45d6"></span>source μ</span>
+                <span><span class="swatch" style="background:#1f8a5b"></span>target ν</span>
+                <span><span class="line-swatch" style="border-color:#3a4060"></span>transport plan</span>
+                <span><span class="swatch square" style="background:#14204f"></span>large cost</span>
                 <span><span class="swatch square" style="background:#efe4cb"></span>small cost</span>
-                <span><span class="swatch square" style="background:#2a6f7a"></span>cost reduced</span>
-                <span><span class="swatch square" style="background:#a4452f"></span>cost increased</span>
+                <span><span class="swatch square" style="background:#2a45d6"></span>cost reduced</span>
+                <span><span class="swatch square" style="background:#1f8a5b"></span>cost increased</span>
               </div>
               <div class="demo-readout">
                 <span>regularizer: <b id="adv-reg-name">Entropy</b></span>
@@ -336,9 +336,9 @@
                 </label>
               </div>
               <div class="demo-legend">
-                <span><span class="swatch square" style="background:#123f4a"></span>strong match</span>
+                <span><span class="swatch square" style="background:#14204f"></span>strong match</span>
                 <span><span class="swatch square" style="background:#d7b46a"></span>worker distribution</span>
-                <span><span class="swatch square" style="background:#8f3b2d"></span>firm technology / size</span>
+                <span><span class="swatch square" style="background:#b8651f"></span>firm technology / size</span>
               </div>
               <div class="demo-readout">
                 <span>model: <b id="econ-model-name">OT</b></span>
@@ -352,6 +352,7 @@
       </div>
     </div>
     <script src="javascripts/sidebar.js"></script>
+    <script src="javascripts/forecast.js"></script>
     <script src="javascripts/srw.js"></script>
     <script src="javascripts/regularity.js"></script>
     <script src="javascripts/adversarial.js"></script>

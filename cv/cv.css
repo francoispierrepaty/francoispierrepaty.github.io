@@ -1,21 +1,28 @@
 /* ===========================================================
    François-Pierre Paty — CV
    Minimalist print stylesheet, in the spirit of
-   francoispierrepaty.github.io (Spectral serif, terracotta accent).
+   francoispierrepaty.github.io (ink and grid: blue ink, green marks,
+   Bricolage Grotesque + Figtree + IBM Plex Mono).
    Rendered to PDF with WeasyPrint.
    =========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
-  --ink:      #2b2a27;
-  --muted:    #6f6a62;
-  --faint:    #9a948b;
-  --rule:     #ece9e2;
-  --accent:   #a4452f;
+  --ink:      #10152e;
+  --muted:    #5a6079;
+  --faint:    #8a90a8;
+  --rule:     #dfe3f0;
+  --accent:   #2a45d6;
+  --green:    #1f8a5b;
+  --hi:       #bdeed3;
 
-  --rail:     21mm;   /* width of the date column            */
-  --gutter:   9mm;    /* gap between date column and content  */
+  --head:     "Bricolage Grotesque", "Figtree", Helvetica, Arial, sans-serif;
+  --body:     "Figtree", Helvetica, Arial, sans-serif;
+  --mono:     "IBM Plex Mono", Menlo, "Courier New", monospace;
+
+  --rail:     22mm;   /* width of the date column            */
+  --gutter:   8mm;    /* gap between date column and content  */
 }
 
 @page {
@@ -24,9 +31,9 @@
   background: #ffffff;
   @bottom-center {
     content: counter(page);
-    font-family: "Spectral", Georgia, serif;
-    font-size: 8pt;
-    color: #9a948b;
+    font-family: "IBM Plex Mono", Menlo, monospace;
+    font-size: 7.5pt;
+    color: #8a90a8;
   }
 }
 @page :first {
@@ -36,31 +43,31 @@
 * { box-sizing: border-box; }
 
 html {
-  font-family: "Spectral", Georgia, "Times New Roman", serif;
-  font-size: 9.2pt;
-  line-height: 1.4;
+  font-family: var(--body);
+  font-size: 9pt;
+  line-height: 1.43;
   color: var(--ink);
   background: #ffffff;
 }
 body { margin: 0; }
 
-a { color: var(--accent); text-decoration: none; }
+a { color: var(--ink); text-decoration: none; }
 
 /* ---------- header ---------- */
 .header { margin: 0 0 4px; }
 .name {
-  font-size: 27pt;
-  font-weight: 600;
-  letter-spacing: .2px;
+  font-family: var(--head);
+  font-size: 28pt;
+  font-weight: 800;
+  letter-spacing: -.03em;
   line-height: 1.05;
-  margin: 0 0 6px;
+  margin: 0 0 5px;
   color: var(--ink);
 }
 .tagline {
   color: var(--muted);
-  font-style: italic;
-  font-size: 10pt;
-  margin: 0 0 11px;
+  font-size: 10.5pt;
+  margin: 0 0 10px;
 }
 .contact {
   font-size: 9pt;
@@ -68,8 +75,8 @@ a { color: var(--accent); text-decoration: none; }
   margin: 0;
   line-height: 1.6;
 }
-.contact a { color: var(--muted); }
-.contact .sep { color: var(--rule); margin: 0 7px; }
+.contact a { color: var(--ink); border-bottom: 1.5px solid var(--hi); }
+.contact .sep { color: var(--faint); margin: 0 7px; }
 
 .summary {
   margin: 13px 0 2px;
@@ -82,15 +89,22 @@ a { color: var(--accent); text-decoration: none; }
 section { margin: 0; }
 
 h2 {
-  font-size: 9pt;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .16em;
-  color: var(--accent);
-  margin: 14px 0 8px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid var(--rule);
+  font-family: var(--head);
+  font-size: 13pt;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--ink);
+  margin: 16px 0 9px;
   break-after: avoid;
+}
+/* a mono blue slash before every section title, like the website */
+h2::before {
+  content: "/";
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--accent);
+  margin-right: 2mm;
+  letter-spacing: 0;
 }
 
 /* ---------- entry: date rail + body ---------- */
@@ -107,15 +121,16 @@ h2 {
 .when {
   display: flex;
   flex-direction: column;
-  font-size: 8.6pt;
-  line-height: 1.4;
-  padding-top: 2.5px;
-  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 7.6pt;
+  line-height: 1.5;
+  padding-top: 2px;
+  color: var(--accent);
 }
 .when .to { color: var(--faint); }
 
 .what { min-width: 0; }
-.role { font-weight: 600; font-size: 10.5pt; line-height: 1.25; color: var(--ink); }
+.role { font-family: var(--head); font-weight: 700; letter-spacing: -.01em; font-size: 10.5pt; line-height: 1.25; color: var(--ink); }
 .org  { color: var(--muted); font-size: 9.4pt; margin-top: 1px; }
 .org a { color: inherit; }
 .org .loc { color: var(--faint); }
@@ -124,9 +139,9 @@ h2 {
 
 ul.bullets { margin: 4px 0 0; padding-left: 1.05em; }
 ul.bullets li { margin: 0 0 3px; }
-ul.bullets li::marker { color: var(--faint); }
+ul.bullets li::marker { color: var(--green); }
 
-.award { color: var(--accent); font-weight: 600; }
+.award { color: var(--green); font-weight: 600; }
 
 /* ---------- publications ---------- */
 .pub {
@@ -137,9 +152,9 @@ ul.bullets li::marker { color: var(--faint); }
   break-inside: avoid;
 }
 .pub:last-child { margin-bottom: 0; }
-.pub-num { color: var(--faint); font-size: 10pt; font-weight: 600; text-align: right; }
+.pub-num { color: var(--accent); font-family: var(--mono); font-size: 8.5pt; font-weight: 500; text-align: right; padding-top: 1px; }
 .pub-body { min-width: 0; }
-.pub-title { font-weight: 600; font-size: 10pt; line-height: 1.3; color: var(--ink); }
+.pub-title { font-family: var(--head); font-weight: 700; letter-spacing: -.01em; font-size: 10pt; line-height: 1.3; color: var(--ink); }
 .pub-title a { color: var(--ink); }
 .pub-meta  { color: var(--muted); font-size: 9.2pt; margin-top: 1px; }
 
@@ -153,14 +168,14 @@ ul.bullets li::marker { color: var(--faint); }
 }
 .talk-group:last-child { margin-bottom: 0; }
 .talk-group .label {
-  font-size: 9pt;
-  font-style: italic;
-  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 7.8pt;
+  color: var(--accent);
   padding-top: 1px;
 }
 ul.talk-list { margin: 0; padding-left: 1.05em; color: var(--ink); }
 ul.talk-list li { margin: 0 0 3px; }
-ul.talk-list li::marker { color: var(--faint); }
+ul.talk-list li::marker { color: var(--green); }
 
 /* ---------- key/value rows (skills) share the rail grid ---------- */
 .kv {
@@ -171,17 +186,17 @@ ul.talk-list li::marker { color: var(--faint); }
   break-inside: avoid;
 }
 .kv:last-child { margin-bottom: 0; }
-.kv .k { font-weight: 600; color: var(--ink); }
+.kv .k { font-family: var(--mono); font-size: 7.8pt; font-weight: 500; color: var(--accent); }
 .kv .v { color: var(--ink); }
 
 /* ---------- languages ---------- */
 .lang-row { color: var(--ink); margin: 0; }
 .lang-row b { font-weight: 600; }
 .lang-row .lvl { color: var(--muted); }
-.lang-row .sep { color: var(--rule); margin: 0 9px; }
+.lang-row .sep { color: var(--faint); margin: 0 9px; }
 
 /* ---------- simple lists (awards, service) ---------- */
 ul.plain { margin: 0; padding-left: 1.05em; }
 ul.plain li { margin: 0 0 3px; }
-ul.plain li::marker { color: var(--faint); }
+ul.plain li::marker { color: var(--green); }
 ul.plain li:last-child { margin-bottom: 0; }

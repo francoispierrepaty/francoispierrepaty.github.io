@@ -26,7 +26,7 @@
   var ctx = canvas.getContext("2d");
 
   // colours (kept in sync with the page legend)
-  var COL = { x: "#2a6f7a", y: "#a4452f", axis: "#caa84a", plan: "#9a958c", pca: "#6a6258" };
+  var COL = { x: "#2a45d6", y: "#1f8a5b", axis: "#e0a11b", plan: "#8a90a8", pca: "#3a4060" };
 
   var N = 24;                 // points per cloud
   var SINKHORN_ITERS = 100;

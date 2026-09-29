@@ -345,9 +345,9 @@
     }
   }
 
-  var INK = "#33312e";
-  var MUTED = "#6f6a62";
-  var FAINT = "#9a948a";
+  var INK = "#10152e";
+  var MUTED = "#5a6079";
+  var FAINT = "#8a90a8";
 
   function fit() {
     var cssW = canvas.clientWidth || 900;
@@ -365,8 +365,8 @@
   function heatColor(t) {
     t = clamp(t, 0, 1);
     var light = [247, 241, 227];
-    var mid = [193, 124, 60];
-    var dark = [16, 63, 74];
+    var mid = [224, 161, 27];
+    var dark = [20, 32, 79];
     var a = t < 0.55 ? t / 0.55 : (t - 0.55) / 0.45;
     var from = t < 0.55 ? light : mid;
     var to = t < 0.55 ? mid : dark;
@@ -380,7 +380,7 @@
     opts = opts || {};
     ctx.save();
     ctx.fillStyle = opts.color || MUTED;
-    ctx.font = (opts.weight || "400") + " " + (opts.size || 14) + "px Spectral, Georgia, serif";
+    ctx.font = (opts.weight || "400") + " " + (opts.size || 14) + "px Figtree, system-ui, sans-serif";
     ctx.textAlign = opts.align || "left";
     ctx.textBaseline = opts.baseline || "alphabetic";
     if (opts.rotate) {
@@ -434,7 +434,7 @@
         ctx.fillRect(left + col * cell + 0.6, top + row * cell + 0.6, cell - 1.2, cell - 1.2);
       }
     }
-    ctx.strokeStyle = "#d9d3c6";
+    ctx.strokeStyle = "#dfe3f0";
     ctx.lineWidth = 1;
     ctx.strokeRect(left + 0.5, top + 0.5, grid, grid);
 
@@ -457,7 +457,7 @@
     label("firm size", barX, top - 16, { weight: "600", color: INK, size: fsz(14) });
 
     ctx.save();
-    ctx.strokeStyle = "#c2bbac";
+    ctx.strokeStyle = "#c3c9dc";
     ctx.lineWidth = 1;
     ctx.setLineDash([3, 3]);
     ctx.beginPath();
@@ -471,7 +471,7 @@
       var bw = clamp(unit * data.sizes[s], 1.5, LAY.barMax);
       var by = top + s * cell + cell * 0.2;
       var bh = cell * 0.6;
-      ctx.fillStyle = "#8f3b2d";
+      ctx.fillStyle = "#b8651f";
       roundRect(barX, by, bw, bh, bh / 2);
       ctx.fill();
     }
@@ -483,7 +483,7 @@
 
     var maxSupply = Math.max.apply(null, data.supply) || 1;
     // soft guide line at the top of the tallest bar
-    ctx.strokeStyle = "#ece6d9";
+    ctx.strokeStyle = "#eef1f8";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(left, histTop);
@@ -498,7 +498,7 @@
       roundRect(bx, histTop + histH - h, bwk, h, Math.min(3, bwk / 2));
       ctx.fill();
     }
-    ctx.strokeStyle = "#b9b2a4";
+    ctx.strokeStyle = "#b3bad0";
     ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(left, histTop + histH + 0.5);
@@ -515,9 +515,9 @@
     // The centered "worker type" caption is only drawn when it clears both edge
     // labels; on a narrow grid (phones) it would overlap them, and the "worker
     // distribution ν" title above already names the axis, so it is dropped.
-    ctx.font = "600 " + fsz(13.5) + "px Spectral, Georgia, serif";
+    ctx.font = "600 " + fsz(13.5) + "px Figtree, system-ui, sans-serif";
     var centerHalf = ctx.measureText("worker type").width / 2;
-    ctx.font = "400 " + fsz(11.5) + "px Spectral, Georgia, serif";
+    ctx.font = "400 " + fsz(11.5) + "px Figtree, system-ui, sans-serif";
     var edgeRoom = Math.max(ctx.measureText(leftLab).width, ctx.measureText(rightLab).width);
     if (!LAY.compact && edgeRoom + centerHalf + 16 <= grid / 2) {
       label("worker type", left + grid / 2, axisY, { align: "center", size: fsz(13.5), color: INK, weight: "600" });
