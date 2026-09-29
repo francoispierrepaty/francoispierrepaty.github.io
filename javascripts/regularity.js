@@ -23,14 +23,14 @@
   var ctx = canvas.getContext("2d");
 
   var COL = {
-    data:  "#8a857b",
-    fit:   "#a4452f",   // regularized map
-    raw:   "#c6b9a8",   // unconstrained (overfit)
-    truth: "#4e9b5b",   // ground-truth map
+    data:  "#8a90a8",
+    fit:   "#d13b30",   // regularized map
+    raw:   "#c3c9dc",   // unconstrained (overfit)
+    truth: "#1f8a5b",   // ground-truth map
     iso:   "#7d6fa3",   // plain isotonic regression
-    src:   "#3a6ea5",   // source measure P
+    src:   "#2a45d6",   // source measure P
     tgt:   "#c47d33",   // target measure Q
-    axis:  "#d9d3c7"
+    axis:  "#dfe3f0"
   };
 
   var N = 46, M = 181;          // sample count, fine-grid count
@@ -151,7 +151,7 @@
       py: function (y) { return iy0 + ih - (y - ymin) / (ymax - ymin) * ih; },
       frame: function (label) {
         ctx.strokeStyle = COL.axis; ctx.lineWidth = 1; ctx.strokeRect(ix0, iy0, iw, ih);
-        ctx.fillStyle = "#6f6a62"; ctx.font = "600 13px Spectral, Georgia, serif";
+        ctx.fillStyle = "#5a6079"; ctx.font = "600 13px Figtree, system-ui, sans-serif";
         ctx.fillText(label, ix0, y0 + 16);
       }
     };
@@ -201,7 +201,7 @@
     for (i = 0; i < G; i++) { var v = vlo + (vhi - vlo) * i / (G - 1); nuv[i] = kde(nuSamp, v, bw); if (nuv[i] > maxd) maxd = nuv[i]; }
     var sTop = halfTop * 0.9 / maxd, sBot = halfBot * 0.9 / maxd;
 
-    ctx.fillStyle = "#6f6a62"; ctx.font = "600 13px Spectral, Georgia, serif";
+    ctx.fillStyle = "#5a6079"; ctx.font = "600 13px Figtree, system-ui, sans-serif";
     ctx.fillText("The two measures: the map T carries the source P onto the target Q", ix0, y0 + 16);
 
     ctx.strokeStyle = COL.axis; ctx.lineWidth = 1;
@@ -224,7 +224,7 @@
     ctx.fillStyle = COL.tgt;
     for (i = 0; i < ys.length; i++) ctx.fillRect(vx(ys[i]) - 0.5, midY, 1, 5);
 
-    ctx.font = "italic 13px Spectral, Georgia, serif";
+    ctx.font = "italic 13px Figtree, system-ui, sans-serif";
     ctx.fillStyle = COL.src; ctx.fillText("P  source", ix0 + 4, midY - muH - 6);
     ctx.fillStyle = COL.tgt; ctx.fillText("Q  target", ix0 + 4, midY + 18);
   }

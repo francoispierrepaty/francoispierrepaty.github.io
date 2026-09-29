@@ -36,14 +36,14 @@
   var W = 0, H = 0;
 
   var COL = {
-    x: "#2a6f7a",
-    y: "#a4452f",
-    high: "#123f4a",
-    mid: "#b85d3b",
+    x: "#2a45d6",
+    y: "#1f8a5b",
+    high: "#14204f",
+    mid: "#e8b04a",
     low: "#efe4cb",
-    ink: "#33312e",
-    muted: "#6f6a62",
-    grid: "#d8d1c2"
+    ink: "#10152e",
+    muted: "#5a6079",
+    grid: "#dfe3f0"
   };
 
   var MODES = {
@@ -273,8 +273,8 @@
   function hex(n) { var s = Math.round(n).toString(16); return s.length === 1 ? "0" + s : s; }
   function colorScale(v) {
     v = Math.max(0, Math.min(1, v));
-    var aCol = v < 0.55 ? [239, 228, 203] : [184, 93, 59];
-    var bCol = v < 0.55 ? [184, 93, 59] : [18, 63, 74];
+    var aCol = v < 0.55 ? [239, 228, 203] : [232, 176, 74];
+    var bCol = v < 0.55 ? [232, 176, 74] : [20, 32, 79];
     var t = v < 0.55 ? v / 0.55 : (v - 0.55) / 0.45;
     return "#" + hex(lerp(aCol[0], bCol[0], t)) + hex(lerp(aCol[1], bCol[1], t)) + hex(lerp(aCol[2], bCol[2], t));
   }
@@ -282,7 +282,7 @@
   function signedColorScale(v) {
     v = Math.max(-1, Math.min(1, v));
     var neutral = [247, 243, 234];
-    var end = v < 0 ? [42, 111, 122] : [164, 69, 47];
+    var end = v < 0 ? [42, 69, 214] : [31, 138, 91];
     var t = Math.abs(v);
     return "#" + hex(lerp(neutral[0], end[0], t)) + hex(lerp(neutral[1], end[1], t)) + hex(lerp(neutral[2], end[2], t));
   }
@@ -305,7 +305,7 @@
     var cell = size / Math.max(rows, cols);
     var w = cols * cell, h = rows * cell;
     ctx.fillStyle = COL.ink;
-    ctx.font = "600 14px Spectral, Georgia, serif";
+    ctx.font = "600 14px Figtree, system-ui, sans-serif";
     ctx.fillText(title, x, y - 12);
     for (var i = 0; i < rows; i++) {
       for (var j = 0; j < cols; j++) {
@@ -334,7 +334,7 @@
     var cell = size / Math.max(rows, cols);
     var w = cols * cell, h = rows * cell;
     ctx.fillStyle = COL.ink;
-    ctx.font = "600 14px Spectral, Georgia, serif";
+    ctx.font = "600 14px Figtree, system-ui, sans-serif";
     ctx.fillText(title, x, y - 12);
     for (var r = 0; r < rows; r++) {
       for (var s = 0; s < cols; s++) {
@@ -554,7 +554,7 @@
     var sx = function (p) { return ox + 0.5 * side + (p[0] / maxAbs) * 0.42 * side; };
     var sy = function (p) { return oy + 0.5 * side - (p[1] / maxAbs) * 0.42 * side; };
     ctx.fillStyle = COL.ink;
-    ctx.font = "600 14px Spectral, Georgia, serif";
+    ctx.font = "600 14px Figtree, system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.fillText(title, x + w / 2, y - 12);
     ctx.textAlign = "left";
@@ -570,7 +570,7 @@
           ctx.beginPath();
           ctx.moveTo(sx(centered[r2]), sy(centered[r2]));
           ctx.lineTo(sx(centered[NX + s2]), sy(centered[NX + s2]));
-          ctx.strokeStyle = "rgba(106,98,88," + (0.10 + 0.45 * alpha).toFixed(3) + ")";
+          ctx.strokeStyle = "rgba(58,64,96," + (0.10 + 0.45 * alpha).toFixed(3) + ")";
           ctx.lineWidth = 0.6 + 2.8 * alpha;
           ctx.stroke();
         }
@@ -593,7 +593,7 @@
     var sx = function (p) { return ox + p[0] * side; };
     var sy = function (p) { return oy + (1 - p[1]) * side; };
     ctx.fillStyle = COL.ink;
-    ctx.font = "600 14px Spectral, Georgia, serif";
+    ctx.font = "600 14px Figtree, system-ui, sans-serif";
     ctx.textAlign = "center";
     ctx.fillText("true geometry (prior cost c0)", x + w / 2, y - 12);
     ctx.textAlign = "left";
@@ -608,7 +608,7 @@
         ctx.beginPath();
         ctx.moveTo(sx(X[r2]), sy(X[r2]));
         ctx.lineTo(sx(Y[s2]), sy(Y[s2]));
-        ctx.strokeStyle = "rgba(106,98,88," + (0.10 + 0.45 * alpha).toFixed(3) + ")";
+        ctx.strokeStyle = "rgba(58,64,96," + (0.10 + 0.45 * alpha).toFixed(3) + ")";
         ctx.lineWidth = 0.6 + 2.8 * alpha;
         ctx.stroke();
       }

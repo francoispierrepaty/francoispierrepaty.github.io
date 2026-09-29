@@ -37,5 +37,5 @@ No LaTeX, no Overleaf.
 ## Dependencies
 
 `python3` with `jinja2` and `weasyprint`. Both already installed locally.
-Fonts (Spectral) are fetched from Google Fonts at build time; if offline,
-the CV falls back to Georgia/serif.
+Fonts (Bricolage Grotesque, Figtree, IBM Plex Mono) are fetched from Google
+Fonts at build time; if offline, the CV falls back to Helvetica/Arial.
